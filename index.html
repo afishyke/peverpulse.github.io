@@ -44,9 +44,11 @@
         .contact, .social {
             display: flex;
             justify-content: space-around;
+            flex-wrap: wrap;
         }
         .contact div, .social div {
             margin: 10px;
+            text-align: center;
         }
         footer {
             text-align: center;
@@ -76,15 +78,20 @@
             font-weight: bold;
             color: #FFD700;
         }
-        .flowchart-container {
+        .algotrading-padding {
+            padding: 20px;
+            border: 2px dashed #ffffff;
+            margin-bottom: 20px;
+            height: 800px; /* Increased height for the flowchart */
             display: flex;
+            align-items: center;
             justify-content: center;
-            margin: 50px 0;
-            padding: 20px; /* Added padding */
+            overflow: hidden; /* Ensure the flowchart fits within the space */
         }
         .flowchart {
             position: relative;
-            width: 600px;
+            height: 100%; /* Make the flowchart take full height of the padding */
+            width: 100%; /* Make the flowchart take full width of the padding */
         }
         .box {
             width: 150px;
@@ -96,7 +103,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: absolute;
             z-index: 1;
-            opacity: 0;
+            opacity: 0; /* Initially hidden */
         }
         .box:hover {
             transform: scale(1.1);
@@ -136,13 +143,13 @@
         }
         .line {
             position: absolute;
-            width: 100px;
+            width: 100px; /* All lines of equal length */
             height: 2px;
             background-color: #ffffff;
         }
         .v-line {
             position: absolute;
-            width: 2px;
+            width: 2px; /* All lines of equal length */
             height: 100px;
             background-color: #ffffff;
         }
@@ -165,48 +172,74 @@
             <h2>ALGOTRADING</h2>
         </div>
 
+        <div class="section bio algotrading-padding" data-aos="fade-right">
+            <div class="flowchart">
+                <div class="box left" id="box1" style="top: 0; left: 260px;">Extracting data from API</div>
+		<div class="box left" id="box2" style="top: 140px; left: 260px;">Processing data</div>
+		<div class="box left" id="box3" style="top: 280px; left: 260px;">Parallel checking with live market</div>
+                
+		<div class="box right" id="box4" style="top: 480px; left: 430px;">Assisted Trading</div>
+		<div class="box right" id="box5" style="top: 640px; left: 430px;">Automated Trading</div>
+		<div class="box right" id="box6" style="top: 140px; left: 590px;">Manual Trading</div>
+                
+                
+                
+                <div class="arrow arrow-right" style="top: 110px; left: 326px;"></div>
+                <div class="arrow arrow-right" style="top: 450px; left: 498px;"></div>
+		<div class="arrow arrow-right" style="top: 244px; left: 326px;"></div>
+                <div class="arrow arrow-right" style="top: 605px; left: 498px;"></div>
 
+                <div class="line vertical" style="width: 2px; height: 29px; top: 80px; left: 335px; background-color: gold;"></div>
+                <div class="line vertical" style="width: 2px; height: 190px; top: 220px; left: 665px; background-color: gold;"></div>
+                <div class="line vertical" style="width: 2px; height: 24px; top: 220px; left: 335px; background-color: gold;"></div>
+                <div class="line vertical" style="width: 2px; height: 40px; top: 410px; left: 507px; background-color: gold;"></div>
+		<div class="line vertical" style="width: 2px; height: 45px; top: 560px; left: 507px; background-color: gold;"></div>
+                <div class="line horizontal" style="height: 2px; width: 332px; top: 410px; left: 335px; background-color: gold;"></div>
+                <div class="line vertical" style="width: 2px; height: 50px; top: 360px; left: 335px; background-color: gold;"></div>
 
-        <div class="section bio" data-aos="fade-right">
+                
+                
+                
+                
+            </div>
+        </div>
+
+        <div class="section bio" data-aos="fade-LEFT">
             <p><strong>1. Extracting data from API:</strong> In this phase, the algorithm retrieves historical and real-time market data from APIs (Application Programming Interfaces) provided by exchanges, brokers, or third-party data vendors. This data is used to train and test the algorithm.</p>
             <p><strong>2. Processing data:</strong> The retrieved data is processed and cleaned to remove any errors or inconsistencies. This phase includes data normalization, handling missing values, and transforming the data into a format suitable for the algorithm.</p>
             <p><strong>3. Parallel checking with live market:</strong> In this phase, the algorithm is run in parallel with the live market, using historical data to simulate trades. This helps to identify potential issues and measure the algorithm's performance in real-time.</p>
-            <p><strong>4. Manual trading:</strong> The algorithm is used to generate trade signals, which are then executed manually by a human trader. This phase helps to validate the algorithm's performance and identify any potential issues.</p>
-            <p><strong>5. Assisted trading (partially manual, partially automated):</strong> The algorithm is used to generate trade signals, which are then reviewed and executed by a human trader. This phase helps to refine the algorithm's performance and ensure that it is working as intended.</p>
-            <p><strong>6. Automated trading:</strong> The algorithm is fully automated, generating trade signals and executing trades without human intervention. This phase is the final step in testing the algorithm, where it is allowed to trade live markets with real capital.</p>
+            <p><strong>4. Manual trading:</strong> The algorithm is used to generate trade signals, which are then executed manually by a human trader. This allows the trader to review and confirm each trade before execution.</p>
+            <p><strong>5. Assisted trading:</strong> The algorithm generates trade signals, which are automatically executed by a trading system. The system allows for human intervention if necessary, but the trades are primarily executed by the algorithm.</p>
+            <p><strong>6. Automated trading:</strong> The algorithm is fully automated, with no human intervention required. Trades are executed automatically based on the algorithm's signals, allowing for rapid and efficient trading.</p>
         </div>
 
-        <div class="section contact" data-aos="fade-up">
-            <h2>Contact</h2>
+        <div class="section contact" data-aos="fade-left">
             <div>
-                <h3>Email</h3>
-                <p>peverpulse@gmail.com</p>
-            </div>
-            <div>
-                <h3>Phone</h3>
-                <p>+91 97787 38614</p>
+                <h3>Contact Us</h3>
+                <p>Email: contact@peverpulse.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
             </div>
         </div>
 
-        <div class="section social" data-aos="fade-up">
-            <h2>Follow Us</h2>
+        <div class="section social" data-aos="fade-right">
             <div>
-                <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" src="https://image.flaticon.com/icons/png/512/733/733547.png" alt="Instagram"></a>
+                <h3>Follow Us</h3>
+                <p><a href="#"><img src="instagram-icon.png" alt="Instagram" class="social-icon"> Instagram</a></p>
             </div>
         </div>
+        <footer>
+            <p>&copy; 2023 Pever Pulse. All rights reserved.</p>
+        </footer>
     </div>
-
-    <footer>
-        <p>&copy; 2024 Pever Pulse. All rights reserved.</p>
-    </footer>
 
     <!-- AOS Library -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 1200,
+            duration: 1000
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const boxes = document.querySelectorAll('.box');
@@ -216,6 +249,8 @@
                         entry.target.classList.add('in-view');
                     }
                 });
+            }, {
+                threshold: 0.1
             });
 
             boxes.forEach(box => {
