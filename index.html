@@ -78,20 +78,15 @@
             font-weight: bold;
             color: #FFD700;
         }
-        .algotrading-padding {
-            padding: 20px;
-            border: 2px dashed #ffffff;
-            margin-bottom: 20px;
+        .flowchart {
+            position: relative;
             height: 800px; /* Increased height for the flowchart */
+            width: 100%; /* Make the flowchart take full width */
+            margin: 40px 0; /* Add margin to separate from other sections */
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden; /* Ensure the flowchart fits within the space */
-        }
-        .flowchart {
-            position: relative;
-            height: 100%; /* Make the flowchart take full height of the padding */
-            width: 100%; /* Make the flowchart take full width of the padding */
         }
         .box {
             width: 150px;
@@ -172,39 +167,30 @@
             <h2>ALGOTRADING</h2>
         </div>
 
-        <div class="section bio algotrading-padding" data-aos="fade-right">
-            <div class="flowchart">
-                <div class="box left" id="box1" style="top: 0; left: 260px;">Extracting data from API</div>
-		<div class="box left" id="box2" style="top: 140px; left: 260px;">Processing data</div>
-		<div class="box left" id="box3" style="top: 280px; left: 260px;">Parallel checking with live market</div>
-                
-		<div class="box right" id="box4" style="top: 480px; left: 430px;">Assisted Trading</div>
-		<div class="box right" id="box5" style="top: 640px; left: 430px;">Automated Trading</div>
-		<div class="box right" id="box6" style="top: 140px; left: 590px;">Manual Trading</div>
-                
-                
-                
-                <div class="arrow arrow-right" style="top: 110px; left: 326px;"></div>
-                <div class="arrow arrow-right" style="top: 450px; left: 498px;"></div>
-		<div class="arrow arrow-right" style="top: 244px; left: 326px;"></div>
-                <div class="arrow arrow-right" style="top: 605px; left: 498px;"></div>
+        <div class="section bio flowchart" data-aos="fade-right">
+            <div class="box left" id="box1" style="top: 0; left: 260px;">Extracting data from API</div>
+            <div class="box left" id="box2" style="top: 140px; left: 260px;">Processing data</div>
+            <div class="box left" id="box3" style="top: 280px; left: 260px;">Parallel checking with live market</div>
+            
+            <div class="box right" id="box4" style="top: 480px; left: 430px;">Assisted Trading</div>
+            <div class="box right" id="box5" style="top: 640px; left: 430px;">Automated Trading</div>
+            <div class="box right" id="box6" style="top: 140px; left: 590px;">Manual Trading</div>
+            
+            <div class="arrow arrow-right" style="top: 110px; left: 326px;"></div>
+            <div class="arrow arrow-right" style="top: 450px; left: 498px;"></div>
+            <div class="arrow arrow-right" style="top: 244px; left: 326px;"></div>
+            <div class="arrow arrow-right" style="top: 605px; left: 498px;"></div>
 
-                <div class="line vertical" style="width: 2px; height: 29px; top: 80px; left: 335px; background-color: gold;"></div>
-                <div class="line vertical" style="width: 2px; height: 190px; top: 220px; left: 665px; background-color: gold;"></div>
-                <div class="line vertical" style="width: 2px; height: 24px; top: 220px; left: 335px; background-color: gold;"></div>
-                <div class="line vertical" style="width: 2px; height: 40px; top: 410px; left: 507px; background-color: gold;"></div>
-		<div class="line vertical" style="width: 2px; height: 45px; top: 560px; left: 507px; background-color: gold;"></div>
-                <div class="line horizontal" style="height: 2px; width: 332px; top: 410px; left: 335px; background-color: gold;"></div>
-                <div class="line vertical" style="width: 2px; height: 50px; top: 360px; left: 335px; background-color: gold;"></div>
-
-                
-                
-                
-                
-            </div>
+            <div class="line vertical" style="width: 2px; height: 29px; top: 80px; left: 335px; background-color: gold;"></div>
+            <div class="line vertical" style="width: 2px; height: 190px; top: 220px; left: 665px; background-color: gold;"></div>
+            <div class="line vertical" style="width: 2px; height: 24px; top: 220px; left: 335px; background-color: gold;"></div>
+            <div class="line vertical" style="width: 2px; height: 40px; top: 410px; left: 507px; background-color: gold;"></div>
+            <div class="line vertical" style="width: 2px; height: 45px; top: 560px; left: 507px; background-color: gold;"></div>
+            <div class="line horizontal" style="height: 2px; width: 332px; top: 410px; left: 335px; background-color: gold;"></div>
+            <div class="line vertical" style="width: 2px; height: 50px; top: 360px; left: 335px; background-color: gold;"></div>
         </div>
 
-        <div class="section bio" data-aos="fade-LEFT">
+        <div class="section bio" data-aos="fade-left">
             <p><strong>1. Extracting data from API:</strong> In this phase, the algorithm retrieves historical and real-time market data from APIs (Application Programming Interfaces) provided by exchanges, brokers, or third-party data vendors. This data is used to train and test the algorithm.</p>
             <p><strong>2. Processing data:</strong> The retrieved data is processed and cleaned to remove any errors or inconsistencies. This phase includes data normalization, handling missing values, and transforming the data into a format suitable for the algorithm.</p>
             <p><strong>3. Parallel checking with live market:</strong> In this phase, the algorithm is run in parallel with the live market, using historical data to simulate trades. This helps to identify potential issues and measure the algorithm's performance in real-time.</p>
@@ -224,7 +210,7 @@
         <div class="section social" data-aos="fade-right">
             <div>
                 <h3>Follow Us</h3>
-                <p><a href="#"><img src="instagram-icon.png" alt="Instagram" class="social-icon"> Instagram</a></p>
+                <p><a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank"><img src="instagram-icon.png" alt="Instagram" class="social-icon"> Instagram</a></p>
             </div>
         </div>
         <footer>
