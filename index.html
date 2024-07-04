@@ -43,7 +43,7 @@
         }
         .contact, .social {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
         }
         .contact div, .social div {
@@ -55,12 +55,6 @@
             padding: 20px 0;
             border-top: 1px solid #444;
             margin-top: 40px;
-        }
-        .timeline-image {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto;
         }
         .social-icon {
             width: 24px;
@@ -78,27 +72,43 @@
             font-weight: bold;
             color: #FFD700;
         }
+        .flowchart-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            margin: 40px 0;
+        }
+        .flowchart-container::-webkit-scrollbar {
+            width: 6px; /* Reduced width */
+            height: 6px; /* Reduced height */
+        }
+        .flowchart-container::-webkit-scrollbar-thumb {
+            background-color: #FFD700;
+            border-radius: 10px;
+        }
+        .flowchart-container::-webkit-scrollbar-track {
+            background-color: #2a2a2a;
+            border-radius: 10px;
+        }
         .flowchart {
+            display: inline-block;
             position: relative;
             height: 800px; /* Increased height for the flowchart */
-            width: 100%; /* Make the flowchart take full width */
-            margin: 40px 0; /* Add margin to separate from other sections */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden; /* Ensure the flowchart fits within the space */
+            width: 1600px; /* Adjusted width for the flowchart */
+            margin: 0 auto;
         }
         .box {
-            width: 150px;
+            width: 230px; /* Increased width for better text alignment */
             height: 80px;
             border: 2px solid #ffffff;
-            padding: 10px;
+            padding: 10px; /* Reduced padding to fit text */
             text-align: center;
+            line-height: 1.2;
+            overflow-wrap: break-word;
             border-radius: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: absolute;
             z-index: 1;
-            opacity: 0; /* Initially hidden */
+            opacity: 0;
         }
         .box:hover {
             transform: scale(1.1);
@@ -110,18 +120,6 @@
             opacity: 1;
             transition: opacity 1s, transform 1s;
         }
-        .box.left {
-            transform: translateX(-100%);
-        }
-        .box.left.in-view {
-            transform: translateX(0);
-        }
-        .box.right {
-            transform: translateX(100%);
-        }
-        .box.right.in-view {
-            transform: translateX(0);
-        }
         .arrow {
             position: absolute;
             width: 0;
@@ -130,23 +128,18 @@
             border-right: 10px solid transparent;
             border-top: 20px solid #ffffff;
         }
-        .arrow-down {
-            transform: rotate(90deg);
-        }
         .arrow-right {
             transform: rotate(0deg);
         }
         .line {
             position: absolute;
-            width: 100px; /* All lines of equal length */
-            height: 2px;
-            background-color: #ffffff;
+            background-color: gold;
         }
-        .v-line {
-            position: absolute;
-            width: 2px; /* All lines of equal length */
-            height: 100px;
-            background-color: #ffffff;
+        .line.vertical {
+            width: 2px;
+        }
+        .line.horizontal {
+            height: 2px;
         }
     </style>
 </head>
@@ -167,27 +160,26 @@
             <h2>ALGOTRADING</h2>
         </div>
 
-        <div class="section bio flowchart" data-aos="fade-right">
-            <div class="box left" id="box1" style="top: 0; left: 260px;">Extracting data from API</div>
-            <div class="box left" id="box2" style="top: 140px; left: 260px;">Processing data</div>
-            <div class="box left" id="box3" style="top: 280px; left: 260px;">Parallel checking with live market</div>
-            
-            <div class="box right" id="box4" style="top: 480px; left: 430px;">Assisted Trading</div>
-            <div class="box right" id="box5" style="top: 640px; left: 430px;">Automated Trading</div>
-            <div class="box right" id="box6" style="top: 140px; left: 590px;">Manual Trading</div>
-            
-            <div class="arrow arrow-right" style="top: 110px; left: 326px;"></div>
-            <div class="arrow arrow-right" style="top: 450px; left: 498px;"></div>
-            <div class="arrow arrow-right" style="top: 244px; left: 326px;"></div>
-            <div class="arrow arrow-right" style="top: 605px; left: 498px;"></div>
-
-            <div class="line vertical" style="width: 2px; height: 29px; top: 80px; left: 335px; background-color: gold;"></div>
-            <div class="line vertical" style="width: 2px; height: 190px; top: 220px; left: 665px; background-color: gold;"></div>
-            <div class="line vertical" style="width: 2px; height: 24px; top: 220px; left: 335px; background-color: gold;"></div>
-            <div class="line vertical" style="width: 2px; height: 40px; top: 410px; left: 507px; background-color: gold;"></div>
-            <div class="line vertical" style="width: 2px; height: 45px; top: 560px; left: 507px; background-color: gold;"></div>
-            <div class="line horizontal" style="height: 2px; width: 332px; top: 410px; left: 335px; background-color: gold;"></div>
-            <div class="line vertical" style="width: 2px; height: 50px; top: 360px; left: 335px; background-color: gold;"></div>
+        <div class="flowchart-container">
+            <div class="flowchart" data-aos="fade-right">
+                <div class="box" id="box1" style="top: 0; left: 160px;">Extracting data from API</div>
+                <div class="box" id="box2" style="top: 140px; left: 160px;">Processing data</div>
+                <div class="box" id="box3" style="top: 280px; left: 160px;">checking with live market</div>
+                <div class="box" id="box4" style="top: 480px; left: 390px;">Assisted Trading</div>
+                <div class="box" id="box5" style="top: 610px; left: 390px;">Automated Trading</div>
+                <div class="box" id="box6" style="top: 140px; left: 590px;">Manual Trading</div>
+                <div class="arrow arrow-right" style="top: 110px; left: 326px;"></div>
+                <div class="arrow arrow-right" style="top: 450px; left: 498px;"></div>
+                <div class="arrow arrow-right" style="top: 244px; left: 326px;"></div>
+                <div class="arrow arrow-right" style="top: 585px; left: 498px;"></div>
+                <div class="line vertical" style="height: 29px; top: 80px; left: 335px;"></div>
+                <div class="line vertical" style="height: 190px; top: 220px; left: 665px;"></div>
+                <div class="line vertical" style="height: 24px; top: 220px; left: 335px;"></div>
+                <div class="line vertical" style="height: 40px; top: 410px; left: 507px;"></div>
+                <div class="line vertical" style="height: 25px; top: 560px; left: 507px;"></div>
+                <div class="line horizontal" style="width: 332px; top: 410px; left: 335px;"></div>
+                <div class="line vertical" style="height: 50px; top: 360px; left: 335px;"></div>
+            </div>
         </div>
 
         <div class="section bio" data-aos="fade-left">
@@ -195,26 +187,32 @@
             <p><strong>2. Processing data:</strong> The retrieved data is processed and cleaned to remove any errors or inconsistencies. This phase includes data normalization, handling missing values, and transforming the data into a format suitable for the algorithm.</p>
             <p><strong>3. Parallel checking with live market:</strong> In this phase, the algorithm is run in parallel with the live market, using historical data to simulate trades. This helps to identify potential issues and measure the algorithm's performance in real-time.</p>
             <p><strong>4. Manual trading:</strong> The algorithm is used to generate trade signals, which are then executed manually by a human trader. This allows the trader to review and confirm each trade before execution.</p>
-            <p><strong>5. Assisted trading:</strong> The algorithm generates trade signals, which are automatically executed by a trading system. The system allows for human intervention if necessary, but the trades are primarily executed by the algorithm.</p>
-            <p><strong>6. Automated trading:</strong> The algorithm is fully automated, with no human intervention required. Trades are executed automatically based on the algorithm's signals, allowing for rapid and efficient trading.</p>
+            <p><strong>5. Assisted trading:</strong> The algorithm generates trade signals, which are automatically executed by a trading system. The system allows for human intervention if necessary, such as modifying or canceling trades.</p>
+            <p><strong>6. Automated trading:</strong> The algorithm is fully automated, generating and executing trades without human intervention. This phase requires rigorous testing and monitoring to ensure the algorithm performs as expected under various market conditions.</p>
         </div>
 
-        <div class="section contact" data-aos="fade-left">
+        <div class="section contact" data-aos="fade-up">
             <div>
                 <h3>Contact Us</h3>
-                <p>Email: contact@peverpulse.com</p>
-                <p>Phone: +1 (123) 456-7890</p>
+                <p>Email: peverpulse@gmail.com</p>
+                <p>Phone: +91 97787 38614</p>
             </div>
         </div>
 
         <div class="section social" data-aos="fade-right">
             <div>
                 <h3>Follow Us</h3>
-                <p><a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank"><img src="instagram-icon.png" alt="Instagram" class="social-icon"> Instagram</a></p>
+                <p>
+                    <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank">
+                        <img src="https://i.pinimg.com/originals/f5/27/44/f52744b91adbd1af680e9f4372515fb1.jpg" alt="Instagram" class="social-icon">
+                        Instagram
+                    </a>
+                </p>
             </div>
         </div>
+
         <footer>
-            <p>&copy; 2023 Pever Pulse. All rights reserved.</p>
+            <p>&copy; 2024 Pever Pulse. All rights reserved.</p>
         </footer>
     </div>
 
@@ -239,10 +237,13 @@
                 threshold: 0.1
             });
 
-            boxes.forEach(box => {
-                observer.observe(box);
+            boxes.forEach((box, index) => {
+                setTimeout(() => {
+                    observer.observe(box);
+                }, index * 200); // Delay each box by 200ms
             });
         });
     </script>
 </body>
 </html>
+
