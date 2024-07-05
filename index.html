@@ -6,6 +6,8 @@
     <title>Pever Pulse - Personal Webpage</title>
     <!-- AOS Library -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Universal box-sizing */
         * {
@@ -15,111 +17,181 @@
         body {
             background-color: #1a1a1a;
             color: #ffffff;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
+
         .container {
-            width: 80%;
+            width: 87%;
             margin: auto;
             padding: 20px;
         }
-        header {
+
+        .header {
+            width: 100%;
+            padding: 25px;
+            background: #1a1a1a;
             text-align: center;
-            padding: 50px 0;
+            position: relative;
         }
-        header h1 {
-            font-size: 3em;
+
+        .header h1 {
             margin: 0;
-            font-weight: bold;
+            font-size: 3rem;
+            letter-spacing: 0.5rem;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1rem;
+            color: #bbb;
+        }
+
+        .header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://t3.ftcdn.net/jpg/07/83/32/22/240_F_783322281_ktCX1nPDgiigBboJyZvgSb35L5YPPpGI.jpg') no-repeat center center/cover;
+            opacity: 0.2;
+        }
+
+        .interactive-menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .interactive-menu a {
+            background-color: #333;
+            color: #FFD700;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .interactive-menu a:hover {
+            background-color: #FFD700;
+            color: #333;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
+        }
+
         .section {
             margin: 40px 0;
         }
+
         .bio p {
             font-size: 1.2em;
             line-height: 1.6;
+            text-align: justify;
         }
+
         .contact, .social {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .contact div, .social div {
             margin: 10px;
             text-align: center;
         }
+
         footer {
             text-align: center;
             padding: 20px 0;
             border-top: 1px solid #444;
             margin-top: 40px;
         }
+
         .social-icon {
             width: 24px;
             height: 24px;
         }
+
         a {
             color: #FFD700;
             text-decoration: none;
         }
+
         h2 {
             font-weight: bold;
             color: #FFFFFF;
         }
+
         h3 {
             font-weight: bold;
             color: #FFD700;
         }
+
         .flowchart-container {
             overflow-x: auto;
             white-space: nowrap;
-            margin: 40px 0;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
         }
+
         .flowchart-container::-webkit-scrollbar {
-            width: 6px; /* Reduced width */
-            height: 6px; /* Reduced height */
+            width: 6px;
+            height: 6px;
         }
+
         .flowchart-container::-webkit-scrollbar-thumb {
             background-color: #FFD700;
             border-radius: 10px;
         }
+
         .flowchart-container::-webkit-scrollbar-track {
             background-color: #2a2a2a;
             border-radius: 10px;
         }
+
         .flowchart {
             display: inline-block;
             position: relative;
-            height: 800px; /* Increased height for the flowchart */
-            width: 1600px; /* Adjusted width for the flowchart */
-            margin: 0 auto;
+            height: 500px;
+            width: 1600px;
         }
+
         .box {
-            width: 230px; /* Increased width for better text alignment */
-            height: 80px;
+            width: 230px;
+            height: 100px;
             border: 2px solid #ffffff;
-            padding: 10px; /* Reduced padding to fit text */
+            padding: 10px;
             text-align: center;
             line-height: 1.2;
             overflow-wrap: break-word;
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 25px;
+            transition: transform 0.1s ease, box-shadow 0.3s ease;
             position: absolute;
             z-index: 1;
             opacity: 0;
         }
+
         .box:hover {
             transform: scale(1.1);
             box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
             border-color: #FFD700;
             z-index: 10;
         }
+
         .box.in-view {
             opacity: 1;
             transition: opacity 1s, transform 1s;
         }
+
         .arrow {
             position: absolute;
             width: 0;
@@ -128,67 +200,162 @@
             border-right: 10px solid transparent;
             border-top: 20px solid #ffffff;
         }
+
         .arrow-right {
             transform: rotate(0deg);
         }
+
         .line {
             position: absolute;
             background-color: gold;
         }
+
         .line.vertical {
             width: 2px;
         }
+
         .line.horizontal {
             height: 2px;
         }
+	/* Additional styles for the members section */
+#members-section {
+    width: 800px;
+    margin: auto;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+#members-section .title {
+    font-size: 3em; /* Change this to your desired font size */
+    color: #ffd700; /* Change this to your desired color */
+    margin-bottom: 20px;
+}
+
+.member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.member img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #ffd700;
+    margin-bottom: 15px;
+}
+
+.member h2 {
+    margin: 10px 0;
+    color: #ffd700;
+}
+
+.member p {
+    margin: 0 0 15px;
+}
+
+#social-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#social-section h2 {
+    font-size: 2em;
+    color: #ffd700;
+}
+
+#social-section p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#social-section img {
+    margin-right: 10px;
+}
+
+
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 data-aos="fade-down">Pever Pulse</h1>
-            <p data-aos="fade-up">Software Division</p>
+        <header class="header">
+            <h1>Pever Pulse</h1>
+            <h2>Software Division</h2>
         </header>
 
-        <div class="section bio" data-aos="fade-right">
+        <div class="interactive-menu">
+            <a href="#about">About us</a>
+            <a href="#algotrading">Algotrading</a>
+            <a href="#members-section">Members</a>
+            <a href="#social-section">Social</a>
+            <a href="#join">Join us</a>
+        </div>
+
+        <div class="section bio" id="about" data-aos="fade-right">
             <h2>About Us</h2>
             <p>Pever Pulse, a subsidiary of PeverService, is an autonomous body primarily controlled by five members of PeverService. The organization aims to trade stocks, futures, options, cryptocurrencies, forex, and bonds. Currently, it has only started trading stocks and is operating at a net loss. Pever Pulse has invested in many Indian companies. Due to academic commitments, many members have struggled to keep up with the organization's goals. However, as planned by the members, they are practicing trading and aim to start trading in other financial instruments soon, with the hope of becoming profitable.</p>
         </div>
         <hr style="border: 1px solid #444; margin: 20px 0;">
 
-        <div class="section bio" data-aos="fade-right">
+        <div class="section bio" id="algotrading" data-aos="fade-right">
             <h2>ALGOTRADING</h2>
         </div>
 
         <div class="flowchart-container">
             <div class="flowchart" data-aos="fade-right">
-                <div class="box" id="box1" style="top: 0; left: 160px;">Extracting data from API</div>
-                <div class="box" id="box2" style="top: 140px; left: 160px;">Processing data</div>
-                <div class="box" id="box3" style="top: 280px; left: 160px;">checking with live market</div>
-                <div class="box" id="box4" style="top: 480px; left: 390px;">Assisted Trading</div>
-                <div class="box" id="box5" style="top: 610px; left: 390px;">Automated Trading</div>
-                <div class="box" id="box6" style="top: 140px; left: 590px;">Manual Trading</div>
-                <div class="arrow arrow-right" style="top: 110px; left: 326px;"></div>
-                <div class="arrow arrow-right" style="top: 450px; left: 498px;"></div>
-                <div class="arrow arrow-right" style="top: 244px; left: 326px;"></div>
-                <div class="arrow arrow-right" style="top: 585px; left: 498px;"></div>
-                <div class="line vertical" style="height: 29px; top: 80px; left: 335px;"></div>
-                <div class="line vertical" style="height: 190px; top: 220px; left: 665px;"></div>
-                <div class="line vertical" style="height: 24px; top: 220px; left: 335px;"></div>
-                <div class="line vertical" style="height: 40px; top: 410px; left: 507px;"></div>
-                <div class="line vertical" style="height: 25px; top: 560px; left: 507px;"></div>
-                <div class="line horizontal" style="width: 332px; top: 410px; left: 335px;"></div>
-                <div class="line vertical" style="height: 50px; top: 360px; left: 335px;"></div>
+                <div style="color: gold; font-size: 24px; position: absolute; top: 60px; left: 275px;">&#10148;</div>
+                <div style="color: gold; font-size: 24px; position: absolute; top: 60px; left: 560px;">&#10148;</div>
+                <div class="box left" id="box1" style="top: 25px; left: 30px;">Extracting data from API</div>
+                <div style="color: gold; font-size: 24px; position: absolute; top: 230px; left: 1160px;">&#10148;</div>
+                <div style="color: gold; font-size: 24px; position: absolute; top: 228px; left: 874px;">&#10148;</div>
+
+                <div class="box left" id="box2" style="top: 25px; left: 315px;">Processing data</div>
+                <div class="line horizontal" style="width: 50px; top: 245px; left: 845px;"></div>
+                <div class="box left" id="box3" style="top: 25px; left: 600px;">checking with live market</div>
+                <div class="line horizontal" style="width: 33px; top: 410px; left: 410px;"></div>
+                <div class="box right" id="box6" style="top: 365px; left: 30px;">Manual Trading</div>
+                <div class="line vertical" style="height: 170px; top: 75px; left: 845px;"></div>
+                <div class="line horizontal" style="width: 6px; top: 75px; left: 840px;"></div>
+                <div class="line horizontal" style="width: 570px; top: 410px; left: 275px;"></div>
+                <div class="line vertical" style="height: 167px; top: 245px; left: 845px;"></div>
+                <div class="box right" id="box4" style="top: 195px; left: 910px;">Assisted Trading</div>
+                
+                <div class="box right" id="box5" style="top: 195px; left: 1200px;">Automated Trading</div>
             </div>
         </div>
-
-        <div class="section bio" data-aos="fade-left">
+	<div class="section bio" data-aos="fade-left">
             <p><strong>1. Extracting data from API:</strong> In this phase, the algorithm retrieves historical and real-time market data from APIs (Application Programming Interfaces) provided by exchanges, brokers, or third-party data vendors. This data is used to train and test the algorithm.</p>
             <p><strong>2. Processing data:</strong> The retrieved data is processed and cleaned to remove any errors or inconsistencies. This phase includes data normalization, handling missing values, and transforming the data into a format suitable for the algorithm.</p>
             <p><strong>3. Parallel checking with live market:</strong> In this phase, the algorithm is run in parallel with the live market, using historical data to simulate trades. This helps to identify potential issues and measure the algorithm's performance in real-time.</p>
             <p><strong>4. Manual trading:</strong> The algorithm is used to generate trade signals, which are then executed manually by a human trader. This allows the trader to review and confirm each trade before execution.</p>
             <p><strong>5. Assisted trading:</strong> The algorithm generates trade signals, which are automatically executed by a trading system. The system allows for human intervention if necessary, such as modifying or canceling trades.</p>
             <p><strong>6. Automated trading:</strong> The algorithm is fully automated, generating and executing trades without human intervention. This phase requires rigorous testing and monitoring to ensure the algorithm performs as expected under various market conditions.</p>
+        </div>
+
+        <div class="members section" data-aos="fade-right" id="members-section">
+            <div class="title">Members</div>
+            <div class="member">
+                <img src="https://i.ibb.co/JRmFhGF/Whats-App-Image-2024-07-05-at-13-25-56-6be8d8bf.jpg" alt="Hamdan Haroon">
+                <h2>Hamdan Haroon</h2>
+                <p>Hamdan Haroon is the team head of Pever Pulse. He has been an integral part of the organization, having initiated the processes we use today.</p>
+            </div>
+        </div>
+
+        <div class="section bio" data-aos="fade-right" id="social-section">
+            <h2>Follow Us</h2>
+            <p>
+                <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank">
+                    <img src="https://i.pinimg.com/originals/f5/27/44/f52744b91adbd1af680e9f4372515fb1.jpg" alt="Instagram" class="social-icon">
+                    Instagram
+                </a>
+            </p>
         </div>
 
         <div class="section contact" data-aos="fade-up">
@@ -199,32 +366,15 @@
             </div>
         </div>
 
-        <div class="section social" data-aos="fade-right">
-            <div>
-                <h3>Follow Us</h3>
-                <p>
-                    <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank">
-                        <img src="https://i.pinimg.com/originals/f5/27/44/f52744b91adbd1af680e9f4372515fb1.jpg" alt="Instagram" class="social-icon">
-                        Instagram
-                    </a>
-                </p>
-            </div>
-        </div>
-
         <footer>
             <p>&copy; 2024 Pever Pulse. All rights reserved.</p>
         </footer>
     </div>
 
-    <!-- AOS Library -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000
-        });
-    </script>
+        AOS.init();
 
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
             const boxes = document.querySelectorAll('.box');
             const observer = new IntersectionObserver(entries => {
@@ -237,13 +387,10 @@
                 threshold: 0.1
             });
 
-            boxes.forEach((box, index) => {
-                setTimeout(() => {
-                    observer.observe(box);
-                }, index * 200); // Delay each box by 200ms
+            boxes.forEach(box => {
+                observer.observe(box);
             });
         });
     </script>
 </body>
 </html>
-
