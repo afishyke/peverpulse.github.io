@@ -1,434 +1,273 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pever Pulse - Personal Webpage</title>
-    <!-- AOS Library -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pever Pulse - Elite Trading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Universal box-sizing */
-        * {
-            box-sizing: border-box;
+        :root {
+            --deep-black: #0A0A0A;
+            --royal-gold: #BF9B30;
+            --metallic-gold: #D4AF37;
+            --dark-gold: #8B6F15;
+            --shadow-gold: rgba(191, 155, 48, 0.2);
         }
 
-        body {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: 'Roboto', Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            max-width: 100%;
             overflow-x: hidden;
         }
 
-        .container {
-            width: 87%;
-            margin: auto;
-            padding: 20px;
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, var(--deep-black) 0%, #1C1C1C 100%);
+            color: var(--royal-gold);
+            line-height: 1.7;
         }
 
-        .header {
+        .elite-container {
             width: 100%;
-            padding: 25px;
-            background: #1a1a1a;
-            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .elite-header {
             position: relative;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 3rem;
-            letter-spacing: 0.5rem;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .header h2 {
-            margin: 0;
-            font-size: 1rem;
-            color: #bbb;
-        }
-
-        .header:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 110%;
-            --s: 200px;
-            --c1: #1d1d1d;
-            --c2: #4e4f51;
-            --c3: #3c3c3c;
-            background: repeating-conic-gradient(
-                    from 30deg,
-                    #0000 0 120deg,
-                    var(--c3) 0 180deg
-                )
-                calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
-              repeating-conic-gradient(
-                from 30deg,
-                var(--c1) 0 60deg,
-                var(--c2) 0 120deg,
-                var(--c3) 0 180deg
-              );
-            background-size: var(--s) calc(var(--s) * 0.577);
-            box-shadow: 0 0 20px 10px rgba(255, 215, 0, 0.5), 0 0 30px 15px rgba(255, 215, 0, 0.3), 0 0 40px 20px rgba(255, 215, 0, 0.1);
-            opacity: 0.3;
-        }
-
-        .interactive-menu {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .interactive-menu a {
-            background-color: #333;
-            color: #FFD700;
-            text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .interactive-menu a:hover {
-            background-color: #FFD700;
-            color: #333;
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
-        }
-
-        .section {
-            margin: 40px 0;
-        }
-
-        .bio p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            text-align: justify;
-        }
-
-        .contact, .social {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .contact div, .social div {
-            margin: 10px;
             text-align: center;
+            padding: 4rem 1rem;
+            background: 
+                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M0 0 L50 50 Z" stroke-width="1" stroke="rgba(191,155,48,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
+            border-bottom: 4px solid var(--royal-gold);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .elite-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--metallic-gold), #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .elite-header h2 {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            letter-spacing: 3px;
+            color: var(--dark-gold);
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .elite-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: rgba(0,0,0,0.7);
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--royal-gold);
+            gap: 15px;
+        }
+
+        .elite-nav a {
+            color: var(--metallic-gold);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 10px 15px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .elite-nav a:active {
+            background-color: rgba(191, 155, 48, 0.2);
+        }
+
+        .elite-section {
+            padding: 3rem 1rem;
+        }
+
+        .elite-section-title {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 2rem;
+            color: var(--metallic-gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .elite-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .elite-member {
+            text-align: center;
+            background: rgba(0,0,0,0.6);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid var(--royal-gold);
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .elite-member img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--metallic-gold);
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 20px var(--shadow-gold);
+        }
+
+        .elite-social {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem 1rem;
+        }
+
+        .elite-social a {
+            color: var(--metallic-gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+            font-family: 'Cinzel', serif;
+            padding: 10px 20px;
+            border: 1px solid var(--royal-gold);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .elite-social a:active {
+            background-color: rgba(191, 155, 48, 0.2);
+        }
+
+        .elite-social img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--royal-gold);
         }
 
         footer {
+            background: rgba(0,0,0,0.8);
+            color: var(--dark-gold);
             text-align: center;
-            padding: 20px 0;
-            border-top: 1px solid #444;
-            margin-top: 40px;
+            padding: 2rem 1rem;
+            border-top: 2px solid var(--royal-gold);
+            font-size: 0.9rem;
         }
 
-        .social-icon {
-            width: 24px;
-            height: 24px;
+        /* Improved touch targets */
+        @media (max-width: 480px) {
+            .elite-nav a {
+                flex-basis: calc(50% - 15px);
+                text-align: center;
+            }
+            
+            .elite-member {
+                max-width: 100%;
+            }
         }
 
-        a {
-            color: #FFD700;
-            text-decoration: none;
+        /* Prevent text scaling */
+        @media (max-width: 768px) {
+            body {
+                -webkit-text-size-adjust: 100%;
+            }
         }
-
-        h2 {
-            font-weight: bold;
-            color: #FFFFFF;
-        }
-
-        h3 {
-            font-weight: bold;
-            color: #FFD700;
-        }
-
-        .flowchart-container {
-            overflow-x: auto;
-            white-space: nowrap;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .flowchart-container::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        .flowchart-container::-webkit-scrollbar-thumb {
-            background-color: #FFD700;
-            border-radius: 10px;
-        }
-
-        .flowchart-container::-webkit-scrollbar-track {
-            background-color: #2a2a2a;
-            border-radius: 10px;
-        }
-
-        .flowchart {
-            display: inline-block;
-            position: relative;
-            height: 500px;
-            width: 1600px;
-        }
-
-        .box {
-            width: 230px;
-            height: 100px;
-            border: 2px solid #ffffff;
-            padding: 10px;
-            text-align: center;
-            line-height: 1.2;
-            overflow-wrap: break-word;
-            border-radius: 25px;
-            transition: transform 0.1s ease, box-shadow 0.3s ease;
-            position: absolute;
-            z-index: 1;
-            opacity: 0;
-        }
-
-        .box:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
-            border-color: #FFD700;
-            z-index: 10;
-        }
-
-        .box.in-view {
-            opacity: 1;
-            transition: opacity 1s, transform 1s;
-        }
-
-        .arrow {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 20px solid #ffffff;
-        }
-
-        .arrow-right {
-            transform: rotate(0deg);
-        }
-
-        .line {
-            position: absolute;
-            background-color: gold;
-        }
-
-        .line.vertical {
-            width: 2px;
-        }
-
-        .line.horizontal {
-            height: 2px;
-        }
-	/* Additional styles for the members section */
-#members-section {
-    width: 800px;
-    margin: auto;
-    background-color: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    text-align: center;
-}
-
-#members-section .title {
-    font-size: 3em; /* Change this to your desired font size */
-    color: #ffd700; /* Change this to your desired color */
-    margin-bottom: 20px;
-}
-
-.member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.member img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 2px solid #ffd700;
-    margin-bottom: 15px;
-}
-
-.member h2 {
-    margin: 10px 0;
-    color: #ffd700;
-}
-
-.member p {
-    margin: 0 0 15px;
-}
-
-#social-section {
-    text-align: center;
-    margin-top: 40px;
-}
-
-#social-section h2 {
-    font-size: 2em;
-    color: #ffd700;
-}
-
-#social-section p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
-
-#social-section img {
-    margin-right: 10px;
-}
-
-
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>PEVER PULSE</h1>
-            <h2>Software Division</h2>
+    <div class="elite-container">
+        <header class="elite-header">
+            <h1>Pever Pulse</h1>
+            <h2>Algorithmic Trading Division</h2>
         </header>
 
-        <div class="interactive-menu">
-            <a href="#about">About us</a>
+        <nav class="elite-nav">
+            <a href="#about">About Us</a>
             <a href="#algotrading">Algotrading</a>
-            <a href="#members-section">Members</a>
-            <a href="#social-section">Social</a>
+            <a href="#members">Members</a>
+            <a href="#social">Social</a>
             <a href="https://peverpi.github.io/peverpi/#hi-there-" target="_blank">
                 Pever Pi <span style="font-size: 0.8em;">(Beta)</span>
             </a>
-        </div>
+        </nav>
 
-        <div class="section bio" id="about" data-aos="fade-right">
-            <h2>About Us</h2>
+        <section id="about" class="elite-section">
+            <h2 class="elite-section-title">About Us</h2>
             <p>Pever Pulse, a subsidiary of PeverService, is an autonomous body primarily controlled by five members of PeverService. The organization aims to trade stocks, futures, options, cryptocurrencies, forex, and bonds. Currently, it has only started trading stocks and is operating at a net loss. Pever Pulse has invested in many Indian companies. Due to academic commitments, many members have struggled to keep up with the organization's goals. However, as planned by the members, they are practicing trading and aim to start trading in other financial instruments soon, with the hope of becoming profitable.</p>
-        </div>
-        <hr style="border: 1px solid #444; margin: 20px 0;">
+        </section>
 
-        <div class="section bio" id="algotrading" data-aos="fade-right">
-            <h2>ALGOTRADING</h2>
-        </div>
-
-        <div class="flowchart-container">
-            <div class="flowchart" data-aos="fade-right">
-                <div style="color: gold; font-size: 24px; position: absolute; top: 60px; left: 275px;">&#10148;</div>
-                <div style="color: gold; font-size: 24px; position: absolute; top: 60px; left: 560px;">&#10148;</div>
-                <div class="box left" id="box1" style="top: 25px; left: 30px;">Extracting data from API</div>
-                <div style="color: gold; font-size: 24px; position: absolute; top: 230px; left: 1160px;">&#10148;</div>
-                <div style="color: gold; font-size: 24px; position: absolute; top: 228px; left: 874px;">&#10148;</div>
-
-                <div class="box left" id="box2" style="top: 25px; left: 315px;">Processing data</div>
-                <div class="line horizontal" style="width: 50px; top: 245px; left: 845px;"></div>
-                <div class="box left" id="box3" style="top: 25px; left: 600px;">checking with live market</div>
-                <div class="line horizontal" style="width: 33px; top: 410px; left: 410px;"></div>
-                <div class="box right" id="box6" style="top: 365px; left: 30px;">Manual Trading</div>
-                <div class="line vertical" style="height: 170px; top: 75px; left: 845px;"></div>
-                <div class="line horizontal" style="width: 6px; top: 75px; left: 840px;"></div>
-                <div class="line horizontal" style="width: 570px; top: 410px; left: 275px;"></div>
-                <div class="line vertical" style="height: 167px; top: 245px; left: 845px;"></div>
-                <div class="box right" id="box4" style="top: 195px; left: 910px;">Assisted Trading</div>
-                
-                <div class="box right" id="box5" style="top: 195px; left: 1200px;">Automated Trading</div>
+        <section id="members" class="elite-section">
+            <h2 class="elite-section-title">Our Elite Team</h2>
+            <div class="elite-members">
+                <div class="elite-member">
+                    <img src="https://i.ibb.co/JRmFhGF/Whats-App-Image-2024-07-05-at-13-25-56-6be8d8bf.jpg" alt="Hamdan Haroon">
+                    <h3>Hamdan Haroon</h3>
+                    <p>Team Head</p>
+                </div>
+                <div class="elite-member">
+                    <img src="https://i.ibb.co/J2HG8qt/renjeev.jpg" alt="Arjun Renjeev">
+                    <h3>Arjun Renjeev</h3>
+                    <p>Senior Stock Picker</p>
+                </div>
+                <div class="elite-member">
+                    <img src="https://i.ibb.co/JCgBvK0/kandy.jpg" alt="Kenady B Paul">
+                    <h3>Kenady B Paul</h3>
+                    <p>Trade Manager</p>
+                </div>
+                <div class="elite-member">
+                    <img src="https://i.ibb.co/dDmdNB9/settan-patty.jpg" alt="Akash Ani">
+                    <h3>Akash Ani</h3>
+                    <p>Software Head</p>
+                </div>
             </div>
-        </div>
-	<div class="section bio" data-aos="fade-left">
-	    <p><strong> PHASES OF THE PROCESS :</strong>
-            <p><strong>1. Extracting data from API:</strong> In this phase, the algorithm retrieves historical and real-time market data from APIs (Application Programming Interfaces) provided by exchanges, brokers, or third-party data vendors. This data is used to train and test the algorithm.</p>
-            <p><strong>2. Processing data:</strong> The retrieved data is processed and cleaned to remove any errors or inconsistencies. This phase includes data normalization, handling missing values, and transforming the data into a format suitable for the algorithm.</p>
-            <p><strong>3. Parallel checking with live market:</strong> In this phase, the algorithm is run in parallel with the live market, using historical data to simulate trades. This helps to identify potential issues and measure the algorithm's performance in real-time.</p>
-            <p><strong>4. Manual trading:</strong> The algorithm is used to generate trade signals, which are then executed manually by a human trader. This allows the trader to review and confirm each trade before execution.</p>
-            <p><strong>5. Assisted trading:</strong> The algorithm generates trade signals, which are automatically executed by a trading system. The system allows for human intervention if necessary, such as modifying or canceling trades.</p>
-            <p><strong>6. Automated trading:</strong> The algorithm is fully automated, generating and executing trades without human intervention. This phase requires rigorous testing and monitoring to ensure the algorithm performs as expected under various market conditions.</p>
-        </div>
-	<hr style="border: 1px solid #444; margin: 20px 0;">
+        </section>
 
-        <div class="members section" data-aos="fade-right" id="members-section">
-            <div class="title">Members</div>
-            <div class="member">
-                <img src="https://i.ibb.co/JRmFhGF/Whats-App-Image-2024-07-05-at-13-25-56-6be8d8bf.jpg" alt="Hamdan Haroon">
-                <h2>Hamdan Haroon</h2>
-                <p>Team head.</p>
-            </div>
-	    <div class="member">
-                <img src="https://i.ibb.co/J2HG8qt/renjeev.jpg" alt="Arjun Renjeev">
-                <h2>Arjun Renjeev</h2>
-                <p>Senior stock picker .</p>
-            </div>
-	    <div class="member">
-                <img src="https://i.ibb.co/JCgBvK0/kandy.jpg" alt="kandy">
-                <h2>Kenady B Paul</h2>
-                <p>Trade manager.</p>
-            </div>
-	    <div class="member">
-                <img src="https://i.ibb.co/dDmdNB9/settan-patty.jpg" alt="Arjun Renjeev">
-                <h2>Akash Ani</h2>
-                <p>Software head.</p>
-            </div>
-	    
+        <section id="social" class="elite-section elite-social">
+            <h2 class="elite-section-title">Connect With Us</h2>
+            <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank">
+                <img src="https://i.pinimg.com/originals/f5/27/44/f52744b91adbd1af680e9f4372515fb1.jpg" alt="Instagram">
+                Instagram
+            </a>
+        </section>
 
-        <div class="section bio" data-aos="fade-right" id="social-section">
-            <h2>Follow Us</h2>
-            <p>
-                <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank">
-                    <img src="https://i.pinimg.com/originals/f5/27/44/f52744b91adbd1af680e9f4372515fb1.jpg" alt="Instagram" class="social-icon">
-                    Instagram
-                </a>
-            </p>
-        </div>
-
-        <div class="section contact" data-aos="fade-up">
-            <div>
-                <h3>Contact Us</h3>
+        <section class="elite-section">
+            <h2 class="elite-section-title">Contact</h2>
+            <div style="text-align: center;">
                 <p>Email: peverpulse@gmail.com</p>
                 <p>Phone: +91 97787 38614</p>
             </div>
-        </div>
+        </section>
 
         <footer>
-            <p>&copy; 2024 Pever Pulse. All rights reserved.</p>
+            <p>&copy; 2024 Pever Pulse. All Rights Reserved.</p>
         </footer>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init();
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const boxes = document.querySelectorAll('.box');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            boxes.forEach(box => {
-                observer.observe(box);
-            });
-        });
-    </script>
 </body>
 </html>
