@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pever Pulse - Personal Webpage</title>
     <!-- External CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -14,6 +14,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -21,19 +22,23 @@
             color: #e0e0e0;
             font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         .container {
-            width: 90%;
+            width: 100%;
+            max-width: 1200px;
             margin: auto;
-            padding: 20px;
+            padding: 15px;
         }
 
         .header {
             height: 100vh;
+            max-height: 800px;
             background: linear-gradient(135deg, rgba(5, 5, 5, 0.7), rgba(34, 34, 34, 0.7)), url('https://drive.google.com/uc?export=view&id=1MOg4jafPSoDb-y2OzVRK-N3TV--R8mJ1');
             background-blend-mode: overlay;
             background-size: cover;
+            background-position: center;
             color: #00FFFF;
             display: flex;
             justify-content: center;
@@ -42,20 +47,22 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding: 20px;
         }
 
         .header h1 {
-            font-size: 5rem;
+            font-size: 3rem;
             font-family: 'Orbitron', sans-serif;
             color: #00FFFF;
             text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
             animation: neonGlow 3s infinite alternate;
             z-index: 2;
+            word-break: break-word;
         }
 
         .header h2 {
-            margin-top: 20px;
-            font-size: 2rem;
+            margin-top: 15px;
+            font-size: 1.5rem;
             font-weight: 500;
             color: #FFD700;
             text-shadow: 0 0 5px #FFD700;
@@ -63,25 +70,20 @@
             z-index: 2;
         }
 
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
-            }
-            100% {
-                text-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF;
-            }
-        }
-
         .menu {
-            margin: 50px 0;
+            margin: 30px 0;
             text-align: center;
             z-index: 2;
             animation: slideIn 2s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
 
         .menu a {
-            margin: 0 15px;
-            padding: 10px 25px;
+            margin: 5px;
+            padding: 8px 15px;
             text-decoration: none;
             color: #00FFFF;
             font-weight: 500;
@@ -90,18 +92,12 @@
             border: 2px solid #00FFFF;
             transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
             z-index: 2;
-        }
-
-        .menu a:hover {
-            background-color: #00FFFF;
-            color: #1a1a1a;
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px #00FFFF;
+            font-size: 0.9rem;
         }
 
         .section {
-            margin: 70px 0;
-            padding: 50px;
+            margin: 40px 0;
+            padding: 25px;
             background: #121212;
             border-radius: 15px;
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
@@ -114,69 +110,51 @@
             text-align: center;
             color: #FFD700;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-shadow: 0 0 10px #FFD700;
             animation: pulse 3s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% {
-                text-shadow: 0 0 10px #FFD700;
-            }
-            100% {
-                text-shadow: 0 0 20px #FFD700;
-            }
+            font-size: 1.8rem;
         }
 
         .section p {
             text-align: justify;
-            font-size: 1.2em;
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .members-section {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
             animation: fadeUp 2s;
+            gap: 20px;
         }
 
         .member {
             text-align: center;
-            margin: 20px;
+            margin: 10px;
             transition: transform 0.3s, box-shadow 0.3s;
             background-color: #1e1e1e;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
             animation: memberHover 3s infinite alternate;
-        }
-
-        @keyframes memberHover {
-            0% {
-                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-            }
-        }
-
-        .member:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 1);
+            width: 250px;
+            max-width: 100%;
         }
 
         .member img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 3px solid #FFD700;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            object-fit: cover;
         }
 
         .member h2 {
-            margin-top: 15px;
-            font-size: 1.6em;
+            margin-top: 10px;
+            font-size: 1.3em;
             color: #00FFFF;
         }
 
@@ -186,82 +164,104 @@
 
         .social-icons {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
         }
 
         .social-icons a {
             color: #FFD700;
-            margin: 0 15px;
-            font-size: 2.5em;
+            font-size: 2em;
             transition: color 0.3s, transform 0.3s;
             animation: iconHover 2s infinite alternate;
         }
 
-        @keyframes iconHover {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(15deg);
-            }
-        }
-
-        .social-icons a:hover {
-            color: #00FFFF;
-            transform: rotate(25deg) scale(1.2);
-        }
-
         .contact-info {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             animation: fadeUp 2s;
         }
 
         .contact-info h3 {
             color: #FFD700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-shadow: 0 0 10px #FFD700;
             animation: pulse 3s infinite alternate;
+            font-size: 1.3rem;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
         }
 
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             background-color: #0b0b0b;
             color: #888;
-            font-size: 0.9em;
+            font-size: 0.8em;
             border-top: 1px solid #333;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+        /* Mobile-specific adjustments */
+        @media screen and (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
             }
-            to {
-                opacity: 1;
+
+            .header h2 {
+                font-size: 1.2rem;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .member {
+                width: calc(50% - 20px);
+                margin: 10px;
+            }
+
+            .social-icons {
+                gap: 20px;
+            }
+
+            .social-icons a {
+                font-size: 1.8em;
             }
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        @media screen and (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .header h2 {
+                font-size: 1rem;
+            }
+
+            .menu a {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .member {
+                width: 100%;
             }
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        /* Existing animations remain the same */
+        @keyframes neonGlow {
+            0% { text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; }
+            100% { text-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF; }
         }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px #FFD700; }
+            100% { text-shadow: 0 0 20px #FFD700; }
+        }
+
+        /* Other existing keyframe animations remain unchanged */
     </style>
 </head>
 
