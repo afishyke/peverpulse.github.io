@@ -1,273 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pever Pulse - Elite Trading</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pever Pulse - Personal Webpage</title>
+    <!-- External CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --deep-black: #0A0A0A;
-            --royal-gold: #BF9B30;
-            --metallic-gold: #D4AF37;
-            --dark-gold: #8B6F15;
-            --shadow-gold: rgba(191, 155, 48, 0.2);
-        }
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
         }
 
         body {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(135deg, var(--deep-black) 0%, #1C1C1C 100%);
-            color: var(--royal-gold);
-            line-height: 1.7;
+            background-color: #0b0b0b;
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
         }
 
-        .elite-container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
         }
 
-        .elite-header {
-            position: relative;
-            text-align: center;
-            padding: 4rem 1rem;
-            background: 
-                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M0 0 L50 50 Z" stroke-width="1" stroke="rgba(191,155,48,0.1)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23pattern)"/></svg>');
-            border-bottom: 4px solid var(--royal-gold);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-        }
-
-        .elite-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, var(--metallic-gold), #FFD700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .elite-header h2 {
-            font-size: clamp(1rem, 4vw, 1.5rem);
-            letter-spacing: 3px;
-            color: var(--dark-gold);
-            text-transform: uppercase;
-            margin-top: 10px;
-        }
-
-        .elite-nav {
+        .header {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(5, 5, 5, 0.7), rgba(34, 34, 34, 0.7)), url('https://drive.google.com/uc?export=view&id=1MOg4jafPSoDb-y2OzVRK-N3TV--R8mJ1');
+            background-blend-mode: overlay;
+            background-size: cover;
+            color: #00FFFF;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            background: rgba(0,0,0,0.7);
-            padding: 1rem 0;
-            border-bottom: 2px solid var(--royal-gold);
-            gap: 15px;
-        }
-
-        .elite-nav a {
-            color: var(--metallic-gold);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 10px 15px;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-        }
-
-        .elite-nav a:active {
-            background-color: rgba(191, 155, 48, 0.2);
-        }
-
-        .elite-section {
-            padding: 3rem 1rem;
-        }
-
-        .elite-section-title {
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: clamp(2rem, 6vw, 3rem);
-            margin-bottom: 2rem;
-            color: var(--metallic-gold);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .elite-members {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .elite-member {
-            text-align: center;
-            background: rgba(0,0,0,0.6);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 2px solid var(--royal-gold);
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .elite-member img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid var(--metallic-gold);
-            margin-bottom: 1rem;
-            box-shadow: 0 10px 20px var(--shadow-gold);
-        }
-
-        .elite-social {
-            display: flex;
+            align-items: center;
             flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .elite-social a {
-            color: var(--metallic-gold);
+        .header h1 {
+            font-size: 5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #00FFFF;
+            text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+            animation: neonGlow 3s infinite alternate;
+            z-index: 2;
+        }
+
+        .header h2 {
+            margin-top: 20px;
+            font-size: 2rem;
+            font-weight: 500;
+            color: #FFD700;
+            text-shadow: 0 0 5px #FFD700;
+            animation: fadeIn 2s infinite alternate;
+            z-index: 2;
+        }
+
+        @keyframes neonGlow {
+            0% {
+                text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+            }
+            100% {
+                text-shadow: 0 0 20px #00FFFF, 0 0 40px #00FFFF;
+            }
+        }
+
+        .menu {
+            margin: 50px 0;
+            text-align: center;
+            z-index: 2;
+            animation: slideIn 2s ease-out;
+        }
+
+        .menu a {
+            margin: 0 15px;
+            padding: 10px 25px;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.2rem;
-            font-family: 'Cinzel', serif;
-            padding: 10px 20px;
-            border: 1px solid var(--royal-gold);
+            color: #00FFFF;
+            font-weight: 500;
+            background-color: #1a1a1a;
             border-radius: 5px;
-            transition: all 0.3s ease;
+            border: 2px solid #00FFFF;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            z-index: 2;
         }
 
-        .elite-social a:active {
-            background-color: rgba(191, 155, 48, 0.2);
+        .menu a:hover {
+            background-color: #00FFFF;
+            color: #1a1a1a;
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px #00FFFF;
         }
 
-        .elite-social img {
-            width: 40px;
-            height: 40px;
+        .section {
+            margin: 70px 0;
+            padding: 50px;
+            background: #121212;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+            animation: fadeIn 2s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section h2 {
+            text-align: center;
+            color: #FFD700;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #FFD700;
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                text-shadow: 0 0 10px #FFD700;
+            }
+            100% {
+                text-shadow: 0 0 20px #FFD700;
+            }
+        }
+
+        .section p {
+            text-align: justify;
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        .members-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            animation: fadeUp 2s;
+        }
+
+        .member {
+            text-align: center;
+            margin: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+            animation: memberHover 3s infinite alternate;
+        }
+
+        @keyframes memberHover {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        .member:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 1);
+        }
+
+        .member img {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            border: 2px solid var(--royal-gold);
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .member h2 {
+            margin-top: 15px;
+            font-size: 1.6em;
+            color: #00FFFF;
+        }
+
+        .social-section {
+            text-align: center;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #FFD700;
+            margin: 0 15px;
+            font-size: 2.5em;
+            transition: color 0.3s, transform 0.3s;
+            animation: iconHover 2s infinite alternate;
+        }
+
+        @keyframes iconHover {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(15deg);
+            }
+        }
+
+        .social-icons a:hover {
+            color: #00FFFF;
+            transform: rotate(25deg) scale(1.2);
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeUp 2s;
+        }
+
+        .contact-info h3 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #FFD700;
+            animation: pulse 3s infinite alternate;
         }
 
         footer {
-            background: rgba(0,0,0,0.8);
-            color: var(--dark-gold);
             text-align: center;
-            padding: 2rem 1rem;
-            border-top: 2px solid var(--royal-gold);
-            font-size: 0.9rem;
+            padding: 30px;
+            background-color: #0b0b0b;
+            color: #888;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
         }
 
-        /* Improved touch targets */
-        @media (max-width: 480px) {
-            .elite-nav a {
-                flex-basis: calc(50% - 15px);
-                text-align: center;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
             }
-            
-            .elite-member {
-                max-width: 100%;
+            to {
+                opacity: 1;
             }
         }
 
-        /* Prevent text scaling */
-        @media (max-width: 768px) {
-            body {
-                -webkit-text-size-adjust: 100%;
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="elite-container">
-        <header class="elite-header">
-            <h1>Pever Pulse</h1>
-            <h2>Algorithmic Trading Division</h2>
+    <div class="container">
+        <header class="header">
+            <h1>PEVER PULSE</h1>
+            <h2>Innovative Trading Solutions</h2>
         </header>
 
-        <nav class="elite-nav">
+        <nav class="menu">
             <a href="#about">About Us</a>
             <a href="#algotrading">Algotrading</a>
             <a href="#members">Members</a>
             <a href="#social">Social</a>
-            <a href="https://peverpi.github.io/peverpi/#hi-there-" target="_blank">
-                Pever Pi <span style="font-size: 0.8em;">(Beta)</span>
-            </a>
         </nav>
 
-        <section id="about" class="elite-section">
-            <h2 class="elite-section-title">About Us</h2>
-            <p>Pever Pulse, a subsidiary of PeverService, is an autonomous body primarily controlled by five members of PeverService. The organization aims to trade stocks, futures, options, cryptocurrencies, forex, and bonds. Currently, it has only started trading stocks and is operating at a net loss. Pever Pulse has invested in many Indian companies. Due to academic commitments, many members have struggled to keep up with the organization's goals. However, as planned by the members, they are practicing trading and aim to start trading in other financial instruments soon, with the hope of becoming profitable.</p>
+        <section class="section" id="about">
+            <h2>About Us</h2>
+            <p>Pever Pulse is a subsidiary of PeverService, focused on providing cutting-edge solutions in financial markets.
+                We aim to revolutionize trading by utilizing stocks, futures, options, cryptocurrencies, forex, and bonds.
+                Currently, we have started trading in stocks and are in the process of expanding into other instruments.
+                The journey is challenging but exciting, as our dedicated team members continue to innovate and grow.
+            </p>
         </section>
 
-        <section id="members" class="elite-section">
-            <h2 class="elite-section-title">Our Elite Team</h2>
-            <div class="elite-members">
-                <div class="elite-member">
+        <section class="section" id="members">
+            <h2>Our Members</h2>
+            <div class="members-section">
+                <div class="member">
                     <img src="https://i.ibb.co/JRmFhGF/Whats-App-Image-2024-07-05-at-13-25-56-6be8d8bf.jpg" alt="Hamdan Haroon">
-                    <h3>Hamdan Haroon</h3>
+                    <h2>Hamdan Haroon</h2>
                     <p>Team Head</p>
                 </div>
-                <div class="elite-member">
+                <div class="member">
                     <img src="https://i.ibb.co/J2HG8qt/renjeev.jpg" alt="Arjun Renjeev">
-                    <h3>Arjun Renjeev</h3>
+                    <h2>Arjun Renjeev</h2>
                     <p>Senior Stock Picker</p>
                 </div>
-                <div class="elite-member">
+                <div class="member">
                     <img src="https://i.ibb.co/JCgBvK0/kandy.jpg" alt="Kenady B Paul">
-                    <h3>Kenady B Paul</h3>
+                    <h2>Kenady B Paul</h2>
                     <p>Trade Manager</p>
                 </div>
-                <div class="elite-member">
+                <div class="member">
                     <img src="https://i.ibb.co/dDmdNB9/settan-patty.jpg" alt="Akash Ani">
-                    <h3>Akash Ani</h3>
+                    <h2>Akash Ani</h2>
                     <p>Software Head</p>
                 </div>
             </div>
         </section>
 
-        <section id="social" class="elite-section elite-social">
-            <h2 class="elite-section-title">Connect With Us</h2>
-            <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank">
-                <img src="https://i.pinimg.com/originals/f5/27/44/f52744b91adbd1af680e9f4372515fb1.jpg" alt="Instagram">
-                Instagram
-            </a>
-        </section>
-
-        <section class="elite-section">
-            <h2 class="elite-section-title">Contact</h2>
-            <div style="text-align: center;">
-                <p>Email: peverpulse@gmail.com</p>
-                <p>Phone: +91 97787 38614</p>
+        <section class="section social-section" id="social">
+            <h2>Follow Us</h2>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
             </div>
         </section>
 
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Email: peverpulse@gmail.com</p>
+            <p>Phone: +91 97787 38614</p>
+        </div>
+
         <footer>
-            <p>&copy; 2024 Pever Pulse. All Rights Reserved.</p>
+            <p>&copy; 2024 Pever Pulse. All rights reserved.</p>
         </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
+
 </html>
+
