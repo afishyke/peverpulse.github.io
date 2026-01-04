@@ -259,7 +259,7 @@
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 var(--space-md);
+            padding: 100px var(--space-md) 0;
             position: relative;
             z-index: 10;
         }
@@ -524,6 +524,24 @@
             .asset-price {
                 font-size: 1.5rem;
             }
+        }
+
+        .asset-change {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .change-up {
+            color: var(--success);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .change-down {
+            color: var(--danger);
+            background: rgba(255, 77, 77, 0.1);
         }
 
         /* Portfolio Viz */
@@ -1078,10 +1096,6 @@
         }
 
         @media (max-width: 991px) {
-            nav {
-                padding: 20px 30px;
-            }
-
             .nav-links {
                 display: none;
             }
@@ -1091,7 +1105,7 @@
             }
 
             section {
-                padding: 80px 30px;
+                padding: var(--space-xl) 0;
             }
 
             .about-grid {
@@ -1115,7 +1129,7 @@
 
         @media (max-width: 768px) {
             .hero {
-                padding: 100px 30px;
+                padding: 140px 20px 80px;
                 text-align: center;
             }
 
@@ -1164,6 +1178,7 @@
                 <a href="#about">About</a>
                 <a href="#members">Members</a>
                 <a href="#contact">Contact</a>
+                <a href="analysis.html" target="_blank">View Chart</a>
             </div>
             <div class="nav-right">
                 <a href="analysis.html" target="_blank" class="btn-chart">
