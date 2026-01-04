@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis | Pever Pulse</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #111111;
+            --accent: #c6f023;
+            --text-primary: #ffffff;
+            --text-secondary: #999999;
+            --text-muted: #444444;
+            --danger: #ff4d4d;
+            --success: #c6f023;
+            --border: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --mono: 'JetBrains Mono', monospace;
+
+            /* Fluid Spacing */
+            --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+            --space-sm: clamp(0.75rem, 1.5vw, 1rem);
+            --space-md: clamp(1rem, 2vw, 1.5rem);
+            --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Top Control Bar */
+        header {
+            min-height: 60px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-sm) var(--space-md);
+            gap: var(--space-sm);
+            z-index: 1000;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row;
+                height: 70px;
+                padding: 0 var(--space-md);
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            letter-spacing: -0.5px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 768px) {
+            .controls {
+                width: auto;
+                justify-content: flex-end;
+                gap: 20px;
+            }
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .search-container {
+                width: 250px;
+                flex: none;
+            }
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 15px 10px 40px;
+            color: var(--text-primary);
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(198, 240, 35, 0.05);
+        }
+
+        @media (min-width: 1024px) {
+            .search-input:focus {
+                width: 300px;
+            }
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .resolution-bar {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 3px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .res-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .res-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
+        .res-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .res-btn.active {
+            background: var(--accent);
+            color: black;
+        }
+
+        /* Sidebar Stats */
+        .dashboard-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-main {
+                flex-direction: row;
+            }
+        }
+
+        .sidebar {
+            width: 100%;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-sm);
+            display: flex;
+            flex-direction: row;
+            gap: var(--space-sm);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                width: 280px;
+                border-bottom: none;
+                border-right: 1px solid var(--border);
+                padding: var(--space-md);
+                flex-direction: column;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        }
+
+        .stat-group {
+            display: flex;
+            flex-direction: row;
+            gap: var(--space-sm);
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .stat-group {
+                flex-direction: column;
+                flex-shrink: 1;
+                width: 100%;
+            }
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 15px;
+            transition: var(--transition);
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .stat-card {
+                padding: 15px;
+                border-radius: 15px;
+                min-width: 0;
+            }
+        }
+
+        .stat-card:hover {
+            border-color: rgba(198, 240, 35, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-family: var(--mono);
+            font-size: 1rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 1024px) {
+            .stat-value {
+                font-size: 1.1rem;
+            }
+        }
+
+        .stat-value.up {
+            color: var(--success);
+        }
+
+        .stat-value.down {
+            color: var(--danger);
+        }
+
+        /* Utility classes */
+        .desktop-only {
+            display: none !important;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-only {
+                display: flex !important;
+            }
+
+            .mobile-only {
+                display: none !important;
+            }
+        }
+
+        /* Chart Area */
+        .chart-area {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #000;
+        }
+
+        #candlestickChart {
+            flex: 1;
+            min-height: 0;
+        }
+
+        #volumeChart {
+            height: 150px;
+            min-height: 150px;
+        }
+
+        .chart-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 50;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(198, 240, 35, 0.1);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: var(--text-muted);
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <a href="index.html" class="logo-section">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">PEVER <span style="color: var(--accent)">PULSE</span></div>
+            </a>
+
+            <a href="index.html" class="res-btn mobile-only"
+                style="text-decoration: none; border: 1px solid var(--border); width: 40px; height: 40px;">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+
+        <div class="controls">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="symbolInput" placeholder="Symbol (e.g. RELIANCE)"
+                    value="TATASTEEL">
+            </div>
+
+            <div class="resolution-bar">
+                <button class="res-btn" data-res="1m">1M</button>
+                <button class="res-btn" data-res="5m">5M</button>
+                <button class="res-btn" data-res="15m">15M</button>
+                <button class="res-btn" data-res="1H">1H</button>
+                <button class="res-btn active" data-res="1D">1D</button>
+            </div>
+
+            <a href="index.html" class="res-btn desktop-only"
+                style="text-decoration: none; border: 1px solid var(--border); width: 44px; height: 44px;">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="dashboard-main">
+        <aside class="sidebar">
+            <div class="stat-group">
+                <div class="stat-card">
+                    <div class="stat-label">Symbol</div>
+                    <div class="stat-value" id="dispSymbol">TATASTEEL</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Last Traded Price</div>
+                    <div class="stat-value" id="dispPrice">₹0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Day Change</div>
+                    <div class="stat-value" id="dispChange">0.00%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Day High</div>
+                    <div class="stat-value up" id="dispHigh">₹0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Day Low</div>
+                    <div class="stat-value down" id="dispLow">₹0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Volume</div>
+                    <div class="stat-value" id="dispVolume">0</div>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: auto; padding: 15px; background: rgba(198, 240, 35, 0.05); border-radius: 12px; border: 1px dashed rgba(198, 240, 35, 0.2);">
+                <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.4;">
+                    <i class="fas fa-info-circle"></i> DATA SOURCE: MONEYCONTROL REAL-TIME API. SYMBOLS MUST BE NSE/BSE
+                    TICKERS.
+                </p>
+            </div>
+        </aside>
+
+        <main class="chart-area">
+            <div id="chartLoading" class="chart-loading" style="display: none;">
+                <div class="spinner"></div>
+                <div class="loading-text">FETCHING DATA...</div>
+            </div>
+
+            <div id="candlestickChart"></div>
+            <div id="volumeChart"></div>
+        </main>
+    </div>
+
+    <script>
+        // --- CONSTANTS & STATE ---
+        let currentSymbol = 'TATASTEEL';
+        let currentResolution = '1D';
+        let priceChart = null;
+        let volChart = null;
+
+        const THEME = {
+            accent: '#c6f023',
+            danger: '#ff4d4d',
+            bg: '#000000',
+            grid: 'rgba(255, 255, 255, 0.05)',
+            text: '#999999'
+        };
+
+        // --- CHART OPTIONS ---
+        const getPriceOptions = (data) => ({
+            series: [{ data }],
+            chart: {
+                type: 'candlestick',
+                height: '100%',
+                id: 'price-chart',
+                toolbar: { show: true, tools: { download: false } },
+                animations: { enabled: true },
+                background: 'transparent',
+                foreColor: THEME.text
+            },
+            plotOptions: {
+                candlestick: {
+                    colors: {
+                        upward: THEME.accent,
+                        downward: THEME.danger
+                    },
+                    wick: { useFillColor: true }
+                }
+            },
+            xaxis: {
+                type: 'category',
+                labels: {
+                    style: { fontFamily: 'JetBrains Mono' },
+                    formatter: function (val) {
+                        if (!val) return '';
+                        const d = new Date(val);
+                        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
+                    },
+                    rotate: -45,
+                    rotateAlways: false
+                },
+                axisBorder: { show: false },
+                axisTicks: { show: false },
+                tickAmount: 15
+            },
+            yaxis: {
+                tooltip: { enabled: true },
+                labels: {
+                    style: { fontFamily: 'JetBrains Mono' },
+                    formatter: (v) => '₹' + v.toLocaleString('en-IN')
+                }
+            },
+            grid: { borderColor: THEME.grid },
+            tooltip: {
+                theme: 'dark',
+                x: {
+                    formatter: function (val) {
+                        const d = new Date(val);
+                        return d.toLocaleDateString('en-IN', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    }
+                }
+            }
+        });
+
+        const getVolOptions = (data) => ({
+            series: [{ name: 'Volume', data }],
+            chart: {
+                type: 'bar',
+                height: '100%',
+                id: 'vol-chart',
+                toolbar: { show: false },
+                background: 'transparent',
+                foreColor: THEME.text
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '80%',
+                    colors: {
+                        ranges: [{
+                            from: -Infinity,
+                            to: Infinity,
+                            color: THEME.accent
+                        }]
+                    }
+                }
+            },
+            xaxis: {
+                type: 'category',
+                labels: { show: false },
+                axisBorder: { show: false },
+                axisTicks: { show: false }
+            },
+            yaxis: {
+                labels: {
+                    show: true,
+                    style: { fontFamily: 'JetBrains Mono' },
+                    formatter: (v) => (v / 1000000).toFixed(1) + 'M'
+                }
+            },
+            grid: { borderColor: THEME.grid, padding: { top: -20, bottom: 0 } },
+            dataLabels: { enabled: false }
+        });
+
+        // --- DATA FETCHING ---
+        async function fetchData() {
+            const loading = document.getElementById('chartLoading');
+            loading.style.display = 'flex';
+
+            const to = Math.floor(Date.now() / 1000);
+            const from = to - (365 * 24 * 60 * 60); // 1 year of data
+            const countback = currentResolution === '1D' ? 300 : 2000;
+
+            const url = `https://priceapi.moneycontrol.com/techCharts/indianMarket/stock/history?symbol=${currentSymbol}&resolution=${currentResolution}&from=${from}&to=${to}&countback=${countback}&currencyCode=INR`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.s === 'ok') {
+                    const ohlc = data.t.map((t, i) => ({
+                        x: t * 1000,
+                        y: [data.o[i], data.h[i], data.l[i], data.c[i]]
+                    }));
+
+                    const vol = data.t.map((t, i) => ({
+                        x: t * 1000,
+                        y: data.v[i]
+                    }));
+
+                    updateCharts(ohlc, vol);
+                    updateStats(data);
+                } else {
+                    alert('No data found for ' + currentSymbol);
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function updateCharts(ohlc, vol) {
+            if (priceChart) priceChart.destroy();
+            if (volChart) volChart.destroy();
+
+            priceChart = new ApexCharts(document.querySelector("#candlestickChart"), getPriceOptions(ohlc));
+            volChart = new ApexCharts(document.querySelector("#volumeChart"), getVolOptions(vol));
+
+            priceChart.render();
+            volChart.render();
+        }
+
+        function updateStats(data) {
+            const lastIdx = data.c.length - 1;
+            const prevIdx = lastIdx - 1;
+
+            const last = data.c[lastIdx];
+            const prev = data.c[prevIdx];
+            const change = ((last - prev) / prev * 100).toFixed(2);
+
+            document.getElementById('dispSymbol').innerText = currentSymbol;
+            document.getElementById('dispPrice').innerText = '₹' + last.toLocaleString('en-IN');
+            document.getElementById('dispChange').innerText = (change > 0 ? '+' : '') + change + '%';
+            document.getElementById('dispChange').className = 'stat-value ' + (change > 0 ? 'up' : 'down');
+            document.getElementById('dispHigh').innerText = '₹' + data.h[lastIdx].toLocaleString('en-IN');
+            document.getElementById('dispLow').innerText = '₹' + data.l[lastIdx].toLocaleString('en-IN');
+            document.getElementById('dispVolume').innerText = (data.v[lastIdx] / 1000000).toFixed(2) + 'M';
+        }
+
+        // --- EVENT LISTENERS ---
+        document.getElementById('symbolInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                currentSymbol = e.target.value.toUpperCase();
+                fetchData();
+            }
+        });
+
+        document.querySelectorAll('.res-btn[data-res]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.res-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentResolution = btn.dataset.res;
+                fetchData();
+            });
+        });
+
+        // --- INIT ---
+        window.addEventListener('load', fetchData);
+    </script>
+</body>
+
+</html>
