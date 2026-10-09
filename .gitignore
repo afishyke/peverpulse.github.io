@@ -1,0 +1,4 @@
+node_modules/
+delivery/
+*.log
+.DS_Store

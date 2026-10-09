@@ -1,277 +1,280 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Data Chart</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: gold;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101d24" />
+    <meta
+      name="description"
+      content="Explore historical stock open, high, low, close and volume in Pever Pulse’s midnight archive."
+    />
+    <title>Pever Pulse | The Midnight Archive</title>
+    <script src="assets/js/boot.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/world.css" />
+    <!-- Three and all of its addons MUST use the same pinned release. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
         }
-        .form-container {
-            background-color: #1e1e1e;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-container h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        .form-container label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .form-container input, .form-container select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .form-container button {
-            padding: 10px 20px;
-            background-color: gold;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .chart-container {
-            width: 80%;
-            max-width: 800px;
-            margin-top: 20px;
-        }
-        #stockChart {
-            background-color: #1e1e1e;
-            border-radius: 15px;
-            padding: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h1>Get Stock Data</h1>
-        <form id="stockForm">
-            <label for="symbol">Stock Symbol:</label>
-            <input type="text" id="symbol" name="symbol" required>
-
-            <label for="resolution">Resolution:</label>
-            <select id="resolution" name="resolution" required>
-                <option value="1D">1 Day</option>
-                <option value="1m">1 Minute</option>
-                <option value="3m">3 Minutes</option>
-                <option value="5m">5 Minutes</option>
-                <option value="15m">15 Minutes</option>
-                <option value="30m">30 Minutes</option>
-                <option value="1H">1 Hour</option>
-            </select>
-
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" required>
-
-            <label for="startTime">Start Time:</label>
-            <input type="time" id="startTime" name="startTime" required>
-
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" name="endDate" required>
-
-            <label for="endTime">End Time:</label>
-            <input type="time" id="endTime" name="endTime" required>
-
-            <button type="submit">Get Data</button>
-        </form>
-    </div>
-
-    <div class="chart-container">
-        <canvas id="stockChart"></canvas>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        function convertResolutionToMinutes(resolution) {
-            if (resolution.endsWith('H')) {
-                return parseInt(resolution) * 60;
-            } else if (resolution.endsWith('D')) {
-                return parseInt(resolution) * 24 * 60;
-            } else {
-                return parseInt(resolution);
-            }
-        }
-
-        document.getElementById('stockForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const symbol = document.getElementById('symbol').value;
-            const resolution = document.getElementById('resolution').value;
-            const startDate = document.getElementById('startDate').value;
-            const startTime = document.getElementById('startTime').value;
-            const endDate = document.getElementById('endDate').value;
-            const endTime = document.getElementById('endTime').value;
-
-            const fromDate = new Date(`${startDate}T${startTime}`);
-            const toDate = new Date(`${endDate}T${endTime}`);
-
-            if (fromDate >= toDate) {
-                alert('The "from" date must be earlier than the "to" date.');
-                return;
-            }
-
-            const from = Math.floor(fromDate.getTime() / 1000);
-            const to = Math.floor(toDate.getTime() / 1000);
-
-            const totalIntervalMinutes = (to - from) / 60;
-            const resolutionMinutes = convertResolutionToMinutes(resolution);
-            const countback = Math.round(totalIntervalMinutes / resolutionMinutes);
-
-            const url = `https://priceapi.moneycontrol.com/techCharts/indianMarket/stock/history?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}&countback=${countback}&currencyCode=INR`;
-            
-            const headers = {
-                "User-Agent": "Mozilla/5.0 (Linux; Android 11.0; Surface Duo) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36"
-            };
-
-            console.log('Fetching data from URL:', url);
-
-            fetch(url, { headers })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    if (!response.ok) {
-                        console.error('Network response was not ok', response);
-                        throw new Error(`Network response was not ok: ${response.statusText}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Received data:', data);
-                    if (data.s === 'no_data') {
-                        alert(`No data available for the stock '${symbol}' in the given date range.`);
-                    } else if (data.o && data.h && data.l && data.c && data.v && data.t) {
-                        const labels = data.t.map(timestamp => new Date(timestamp * 1000).toLocaleString());
-                        const openData = data.o;
-                        const highData = data.h;
-                        const lowData = data.l;
-                        const closeData = data.c;
-                        const volumeData = data.v;
-
-                        const ctx = document.getElementById('stockChart').getContext('2d');
-                        new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: labels,
-                                datasets: [
-                                    {
-                                        label: 'Open',
-                                        data: openData,
-                                        borderColor: 'rgba(255, 99, 132, 1)',
-                                        borderWidth: 2,
-                                        fill: false,
-                                        pointRadius: 0
-                                    },
-                                    {
-                                        label: 'High',
-                                        data: highData,
-                                        borderColor: 'rgba(54, 162, 235, 1)',
-                                        borderWidth: 2,
-                                        fill: false,
-                                        pointRadius: 0
-                                    },
-                                    {
-                                        label: 'Low',
-                                        data: lowData,
-                                        borderColor: 'rgba(255, 206, 86, 1)',
-                                        borderWidth: 2,
-                                        fill: false,
-                                        pointRadius: 0
-                                    },
-                                    {
-                                        label: 'Close',
-                                        data: closeData,
-                                        borderColor: 'rgba(75, 192, 192, 1)',
-                                        borderWidth: 2,
-                                        fill: false,
-                                        pointRadius: 0
-                                    },
-                                    {
-                                        label: 'Volume',
-                                        data: volumeData,
-                                        borderColor: 'rgba(153, 102, 255, 1)',
-                                        borderWidth: 2,
-                                        fill: false,
-                                        yAxisID: 'y-axis-volume',
-                                        pointRadius: 0
-                                    }
-                                ]
-                            },
-                            options: {
-                                responsive: true,
-                                scales: {
-                                    x: {
-                                        display: true,
-                                        title: {
-                                            display: true,
-                                            text: 'Date',
-                                            color: '#ffffff'
-                                        },
-                                        ticks: {
-                                            maxTicksLimit: 10,
-                                            color: '#ffffff'
-                                        },
-                                        grid: {
-                                            color: 'rgba(255, 255, 255, 0.2)'
-                                        }
-                                    },
-                                    y: {
-                                        display: true,
-                                        title: {
-                                            display: true,
-                                            text: 'Price',
-                                            color: '#ffffff'
-                                        },
-                                        ticks: {
-                                            color: '#ffffff'
-                                        },
-                                        grid: {
-                                            color: 'rgba(255, 255, 255, 0.2)'
-                                        }
-                                    },
-                                    'y-axis-volume': {
-                                        type: 'linear',
-                                        display: true,
-                                        position: 'right',
-                                        title: {
-                                            display: true,
-                                            text: 'Volume',
-                                            color: '#ffffff'
-                                        },
-                                        ticks: {
-                                            color: '#ffffff'
-                                        },
-                                        grid: {
-                                            color: 'rgba(255, 255, 255, 0.2)'
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    alert('Failed to fetch data. Please try again later.');
-                });
-        });
+      }
     </script>
-</body>
+    <script type="module" src="assets/js/app.js"></script>
+  </head>
+  <body data-page="history">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="loader" hidden role="status" aria-live="polite">
+      <div class="load-mark">◇</div>
+      <p class="eyebrow">PEVER PULSE</p>
+      <p class="load-title">A world is taking shape.</p>
+      <progress
+        id="loadProgress"
+        max="100"
+        value="4"
+        aria-label="Loading world"
+      ></progress>
+      <p id="loadLabel" class="mono">Opening the gateway</p>
+      <button id="skipLoading" class="text-link" type="button">
+        Enter now ↗
+      </button>
+    </div>
+    <div id="world-backdrop" aria-hidden="true">
+      <div class="fallback-halo"></div>
+      <div class="fallback-mountains"></div>
+    </div>
+    <canvas id="world" aria-hidden="true"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Pever Pulse home"
+        ><svg viewBox="0 0 32 40" aria-hidden="true">
+          <path
+            d="M16 1 30 14 16 39 2 14Z M16 1v38 M2 14h28 M2 14l14 6 14-6"
+          /></svg
+        ><span>PEVER PULSE<small>A WORLD OF POSSIBILITY</small></span></a
+      >
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html#home">The gateway</a
+        ><a href="index.html#portfolio">Discovery</a
+        ><a href="index.html#analysis">Observatory</a>
+      </nav>
+      <div class="header-actions">
+        <button
+          id="soundToggle"
+          class="sound-toggle"
+          aria-pressed="false"
+          type="button"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 10v4m4-8v12m5-16v20m5-16v12m4-8v4" /></svg
+          ><span>Sound off</span></button
+        ><button
+          id="menuToggle"
+          class="menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="worldMenu"
+          type="button"
+        >
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+    <div id="worldMenu" class="world-menu" hidden>
+      <nav aria-label="All destinations">
+        <a href="index.html#home">Home <span>01</span></a
+        ><a href="index.html#portfolio">Holdings <span>02</span></a
+        ><a href="index.html#about">About <span>03</span></a
+        ><a href="index.html#members">Members <span>04</span></a
+        ><a href="index.html#analysis">Analysis <span>05</span></a
+        ><a href="index.html#chart">Historical chart <span>06</span></a
+        ><a href="index.html#contact">Contact <span>07</span></a>
+      </nav>
+    </div>
+    <aside class="journey-position" aria-label="Journey position">
+      <span id="realmLabel">The gateway</span>
+      <div><i id="journeyProgress"></i></div>
+      <span id="journeyPercent">00</span>
+    </aside>
+    <button
+      id="motionToggle"
+      class="motion-toggle"
+      aria-pressed="false"
+      type="button"
+    >
+      Pause motion
+    </button>
+    <dialog
+      id="artifactDialog"
+      class="artifact-dialog"
+      aria-labelledby="artifactTitle"
+      data-lenis-prevent
+    >
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Close detail panel">×</button>
+      </form>
+      <p class="eyebrow" id="artifactKicker">THE CRYSTAL ARCHIVE</p>
+      <h2 id="artifactTitle">A fragment of the whole</h2>
+      <p id="artifactBody"></p>
+      <a id="artifactLink" class="text-link" href="index.html#portfolio"
+        >Explore holdings ↗</a
+      >
+    </dialog>
+    <div id="worldTooltip" class="world-tooltip" hidden></div>
+    <div id="cursor" aria-hidden="true"><i></i><b></b></div>
+    <div id="transitionVeil" aria-hidden="true"></div>
+    <noscript
+      ><p class="noscript-note">
+        The story and original portfolio are available below. Enable JavaScript
+        to explore the world and request market charts.
+      </p></noscript
+    >
+
+    <main id="main" class="terminal-main">
+      <div class="subpage-hero">
+        <p class="eyebrow">THE MIDNIGHT ARCHIVE</p>
+        <h1>The past, <em>illuminated.</em></h1>
+        <a href="index.html#chart" class="text-link">← Return to the journey</a>
+      </div>
+      <section class="terminal-shell" aria-label="Historical stock chart">
+        <div class="terminal-topline">
+          <h2>Get Stock Data</h2>
+          <span class="feed-label">THE ARCHIVE / OHLCV</span>
+        </div>
+        <form id="stockForm" class="history-controls">
+          <div class="field">
+            <label for="symbol">Stock Symbol:</label
+            ><input
+              type="text"
+              id="symbol"
+              name="symbol"
+              value="TATASTEEL"
+              maxlength="40"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="resolution">Resolution:</label
+            ><select id="resolution" name="resolution" required>
+              <option value="1D">1 Day</option>
+              <option value="1m">1 Minute</option>
+              <option value="3m">3 Minutes</option>
+              <option value="5m">5 Minutes</option>
+              <option value="15m">15 Minutes</option>
+              <option value="30m">30 Minutes</option>
+              <option value="1H">1 Hour</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="startDate">Start Date:</label
+            ><input type="date" id="startDate" name="startDate" required />
+          </div>
+          <div class="field">
+            <label for="startTime">Start Time:</label
+            ><input
+              type="time"
+              id="startTime"
+              name="startTime"
+              value="09:15"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="endDate">End Date:</label
+            ><input type="date" id="endDate" name="endDate" required />
+          </div>
+          <div class="field">
+            <label for="endTime">End Time:</label
+            ><input
+              type="time"
+              id="endTime"
+              name="endTime"
+              value="15:30"
+              required
+            />
+          </div>
+          <button type="submit" class="data-submit">
+            Get Data <span>↗</span>
+          </button>
+        </form>
+        <p class="data-footnote" id="timezoneNote">
+          Dates and times use your device timezone.
+        </p>
+        <div
+          class="data-status"
+          id="dataStatus"
+          role="status"
+          aria-live="polite"
+        >
+          Choose a symbol and date range, then select Get Data.
+        </div>
+        <div class="chart-area history-chart-area">
+          <div id="chartLoading" class="chart-loading" hidden>
+            <span class="spinner"></span> Fetching data…
+          </div>
+          <canvas
+            id="stockChart"
+            aria-label="Historical open, high, low, close and volume chart"
+            role="img"
+          ></canvas>
+          <p id="chartEmpty" class="chart-empty">
+            Every movement leaves a trace.<small
+              >Your selected price history will appear here.</small
+            >
+          </p>
+        </div>
+        <p id="dataCaption" class="data-caption">No price data loaded.</p>
+        <p class="data-footnote">
+          Price: INR · Volume: right axis · Tap a legend label to toggle its
+          series. Data source: Moneycontrol.
+        </p>
+        <div class="import-data">
+          <label for="historyImport" class="text-link"
+            >Import price-history JSON ↗</label
+          ><input
+            type="file"
+            id="historyImport"
+            accept="application/json,.json"
+            aria-describedby="importHelp"
+          />
+          <p id="importHelp" class="data-footnote">
+            Optional: load an exported JSON file with t, o, h, l, c, v arrays
+            when the provider is unavailable.
+          </p>
+        </div>
+        <details class="data-table-wrap">
+          <summary>View exact OHLC and volume values</summary>
+          <div class="table-scroll" data-lenis-prevent>
+            <table id="priceTable">
+              <caption>
+                Returned price history
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Date & time</th>
+                  <th scope="col">Open</th>
+                  <th scope="col">High</th>
+                  <th scope="col">Low</th>
+                  <th scope="col">Close</th>
+                  <th scope="col">Volume</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+    </main>
+  </body>
 </html>
