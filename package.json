@@ -1,0 +1,12 @@
+{
+  "name": "pever-pulse-crystal-world",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "description": "Buildless HTML/CSS/JS. package.json is only for optional local tests.",
+  "devDependencies": {
+    "jsdom": "26.0.0"
+  }
+}

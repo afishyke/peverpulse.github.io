@@ -1,1699 +1,602 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pever Pulse | Innovative Trading Solutions</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101d24" />
+    <meta
+      name="description"
+      content="Journey through a crystal city of value. Explore Pever Pulse holdings, live market analysis, and historical stock charts."
+    />
+    <title>Pever Pulse | A World of Possibility</title>
+    <script src="assets/js/boot.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --bg-primary: #000000;
-            --bg-secondary: #0a0a0a;
-            --bg-card: #111111;
-            --accent: #c6f023;
-            --text-primary: #ffffff;
-            --text-secondary: #999999;
-            --text-muted: #666666;
-            --danger: #ff4d4d;
-            --success: #00ff88;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --mono: 'JetBrains Mono', monospace;
-
-            /* Fluid Spacing & Typography */
-            --space-xs: clamp(0.5rem, 1vw, 0.75rem);
-            --space-sm: clamp(0.75rem, 1.5vw, 1rem);
-            --space-md: clamp(1rem, 2vw, 1.5rem);
-            --space-lg: clamp(1.5rem, 3vw, 2.5rem);
-            --space-xl: clamp(2.5rem, 5vw, 5rem);
-
-            --h1: clamp(2.5rem, 8vw, 5.5rem);
-            --h2: clamp(1.8rem, 5vw, 3.5rem);
-            --h3: clamp(1.2rem, 3vw, 1.8rem);
-            --body: clamp(0.9rem, 1.2vw, 1.1rem);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-            position: relative;
-            font-size: var(--body);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: auto;
-            padding: 0 var(--space-md);
-            position: relative;
-        }
-
-        .mono {
-            font-family: var(--mono);
-            letter-spacing: -0.5px;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .nav-container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px var(--space-md);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        @media (min-width: 1024px) {
-            .nav-container {
-                padding: 25px 50px;
-            }
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 800;
-            font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-            letter-spacing: -0.5px;
-            position: relative;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-            font-size: 1.1rem;
-            box-shadow: 0 0 15px rgba(198, 240, 35, 0.2);
-        }
-
-        nav .nav-links {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--bg-primary);
-            padding: 100px var(--space-lg);
-            flex-direction: column;
-            gap: 30px;
-            display: none;
-            /* Controlled via JS */
-            z-index: 1000;
-        }
-
-        nav .nav-links.active {
-            display: flex;
-        }
-
-        @media (min-width: 1024px) {
-            nav .nav-links {
-                position: static;
-                height: auto;
-                width: auto;
-                background: transparent;
-                padding: 0;
-                flex-direction: row;
-                display: flex;
-                gap: 40px;
-            }
-        }
-
-        nav .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 700;
-            font-size: clamp(1.5rem, 5vw, 0.9rem);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-        }
-
-        @media (min-width: 1024px) {
-            nav .nav-links a {
-                font-size: 0.85rem;
-            }
-        }
-
-        nav .nav-links a:hover,
-        nav .nav-links a.active {
-            color: var(--accent);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 1001;
-        }
-
-        .btn-talk,
-        .btn-chart {
-            display: none;
-            /* Hide on small mobile, show in burger or desktop */
-        }
-
-        @media (min-width: 768px) {
-
-            .btn-talk,
-            .btn-chart {
-                display: flex;
-                padding: 10px 20px;
-                font-size: 0.8rem;
-                border-radius: 8px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-
-            .btn-talk,
-            .btn-chart {
-                padding: 12px 28px;
-                font-size: 0.9rem;
-                border-radius: 10px;
-            }
-        }
-
-        .btn-talk {
-            background: var(--accent);
-            color: black;
-            text-decoration: none;
-            font-weight: 700;
-            transition: var(--transition);
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-chart {
-            background: transparent;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 700;
-            border: 1px solid var(--accent);
-            align-items: center;
-            gap: 8px;
-        }
-
-        .menu-toggle {
-            display: flex;
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-        }
-
-        @media (min-width: 1024px) {
-            .menu-toggle {
-                display: none;
-            }
-        }
-
-        .hero-container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px var(--space-md) 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-sidebar-left,
-        .hero-sidebar-right {
-            display: none;
-        }
-
-        @media (min-width: 1280px) {
-            .hero-sidebar-left {
-                position: absolute;
-                left: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                display: flex;
-                flex-direction: column;
-                gap: 40px;
-                align-items: center;
-            }
-
-            .hero-sidebar-right {
-                position: absolute;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                display: flex;
-                flex-direction: column;
-                gap: 40px;
-                align-items: center;
-            }
-        }
-
-        .sidebar-item {
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 5;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        @media (min-width: 1024px) {
-            .hero-content {
-                text-align: left;
-                margin: 0;
-            }
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            border-bottom: 1px solid var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .hero-badge i {
-            color: var(--accent);
-            font-size: 0.8rem;
-        }
-
-        .hero h1 {
-            font-size: 6rem;
-            line-height: 1;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 40px;
-        }
-
-        .hero h1 span {
-            color: var(--accent);
-            display: block;
-        }
-
-        .hero-cta {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .play-btn {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .play-icon {
-            width: 60px;
-            height: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .play-btn:hover .play-icon {
-            background: var(--text-primary);
-            color: black;
-            border-color: var(--text-primary);
-        }
-
-        .hero-bg-text {
-            position: absolute;
-            font-weight: 900;
-            font-size: 25rem;
-            color: rgba(255, 255, 255, 0.02);
-            z-index: 1;
-            bottom: -50px;
-            right: -100px;
-            pointer-events: none;
-            line-height: 0.8;
-        }
-
-        .hero-image-decor {
-            position: absolute;
-            right: 100px;
-            top: 50%;
-            transform: translateY(-40%);
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(198, 240, 35, 0.05) 0%, transparent 70%);
-            z-index: 2;
-        }
-
-        .hero-image-decor::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            opacity: 0.1;
-            border-radius: 50%;
-        }
-
-        /* Quote Section */
-        .quote-section {
-            padding: var(--space-xl) var(--space-md);
-            text-align: center;
-            background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
-            position: relative;
-        }
-
-        .quote-text {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 30px;
-            font-style: italic;
-            letter-spacing: -1px;
-            max-width: 1000px;
-            margin: 0 auto 30px;
-        }
-
-        /* Sections */
-        section {
-            padding: var(--space-xl) var(--space-md);
-            position: relative;
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-            text-align: center;
-        }
-
-        @media (min-width: 1024px) {
-            .section-header {
-                margin-bottom: 80px;
-                text-align: left;
-            }
-        }
-
-        .section-header h2 {
-            font-size: var(--h2);
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 10px;
-        }
-
-        /* Stats Grid */
-        .stats-dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: var(--space-lg);
-        }
-
-        @media (min-width: 768px) {
-            .stats-dashboard {
-                gap: 20px;
-            }
-        }
-
-        /* Portfolio Section */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-lg);
-        }
-
-        @media (min-width: 1024px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 50px;
-            }
-        }
-
-        .portfolio-list {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .portfolio-list {
-                padding: 40px;
-                border-radius: 30px;
-            }
-        }
-
-        .portfolio-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .asset-price {
-            font-size: 1.2rem;
-            font-weight: 800;
-        }
-
-        @media (min-width: 768px) {
-            .asset-price {
-                font-size: 1.5rem;
-            }
-        }
-
-        .asset-change {
-            font-size: 0.9rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            display: inline-block;
-        }
-
-        .change-up {
-            color: var(--success);
-            background: rgba(0, 255, 136, 0.1);
-        }
-
-        .change-down {
-            color: var(--danger);
-            background: rgba(255, 77, 77, 0.1);
-        }
-
-        /* Portfolio Viz */
-        .portfolio-viz {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .chart-container {
-            width: 100%;
-            max-width: 350px;
-            position: relative;
-        }
-
-        @media (min-width: 768px) {
-            .chart-container {
-                max-width: 450px;
-            }
-        }
-
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-lg);
-        }
-
-        @media (min-width: 1024px) {
-            .about-grid {
-                grid-template-columns: 1fr 1fr;
-                align-items: center;
-            }
-        }
-
-        /* Members Section */
-        .member-block {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-bottom: var(--space-xl);
-            padding: 20px;
-            background: var(--bg-secondary);
-            border-radius: 30px;
-            border: 1px solid var(--border);
-        }
-
-        @media (min-width: 1024px) {
-            .member-block {
-                flex-direction: row;
-                align-items: center;
-                gap: 60px;
-                padding: 50px;
-                background: transparent;
-                border: none;
-            }
-
-            .member-block:nth-child(even) {
-                flex-direction: row-reverse;
-            }
-        }
-
-        .member-portrait {
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        .portrait-wrapper {
-            aspect-ratio: 1;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid var(--border);
-        }
-
-        .portrait-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .member-info {
-            flex: 1;
-            text-align: center;
-        }
-
-        @media (min-width: 1024px) {
-            .member-info {
-                text-align: left;
-            }
-        }
-
-        .member-name {
-            font-size: var(--h3);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 15px;
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-lg);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @media (min-width: 768px) {
-            .footer-content {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
-
-        .portfolio-viz {
-            background: var(--bg-card);
-            border-radius: 30px;
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        canvas#portfolioChart {
-            max-width: 100% !important;
-            max-height: 280px !important;
-            filter: drop-shadow(0 0 20px rgba(198, 240, 35, 0.15));
-        }
-
-        .portfolio-viz {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portfolio-viz::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(198, 240, 35, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow {
-
-            0%,
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.5;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 1;
-            }
-        }
-
-        .chart-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        .chart-center-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%);
-            text-align: center;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .chart-center-label .total-value {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent);
-            display: block;
-            text-shadow: 0 0 30px rgba(198, 240, 35, 0.5);
-            letter-spacing: -1px;
-        }
-
-        .chart-center-label .total-label {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .chart-legend {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 30px;
-            width: 100%;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .legend-item:hover {
-            background: rgba(198, 240, 35, 0.05);
-            border-color: var(--accent);
-            transform: translateX(5px);
-        }
-
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 4px;
-            flex-shrink: 0;
-            box-shadow: 0 0 10px currentColor;
-        }
-
-        .legend-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .legend-name {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .legend-value {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .legend-percent {
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .viz-label {
-            display: none;
-        }
-
-        /* About Us */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            line-height: 1.2;
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-        }
-
-        .stats-grid {
-            display: none;
-            /* Can be added later if needed */
-        }
-
-        /* Cinematic Members Section */
-        .members-showcase {
-            padding: 150px 0;
-            background: var(--bg-primary);
-        }
-
-        .showcase-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 50px;
-        }
-
-        .member-block {
-            display: flex;
-            align-items: center;
-            gap: 100px;
-            margin-bottom: 200px;
-            position: relative;
-        }
-
-        .member-block:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .member-portrait {
-            flex: 1;
-            position: relative;
-            max-width: 500px;
-        }
-
-        .portrait-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: var(--bg-card);
-            aspect-ratio: 4/5;
-        }
-
-        .portrait-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(0.3) contrast(1.1);
-            transition: var(--transition);
-        }
-
-        .member-block:hover .portrait-wrapper img {
-            filter: grayscale(0) contrast(1);
-            transform: scale(1.05);
-        }
-
-        /* Cutout Effect Overlay */
-        .portrait-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 40%);
-        }
-
-        .member-info {
-            flex: 1;
-            z-index: 10;
-        }
-
-        .member-role {
-            font-family: var(--mono);
-            color: var(--accent);
-            text-transform: uppercase;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .member-name {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            letter-spacing: -2px;
-            line-height: 0.9;
-        }
-
-        .member-quote {
-            font-family: var(--mono);
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            position: relative;
-            padding-left: 20px;
-            border-left: 2px solid var(--accent);
-        }
-
-        /* Tech DNA accents for members */
-        .member-meta {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .meta-tag {
-            padding: 5px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
-        @media (max-width: 991px) {
-            .member-block {
-                flex-direction: column !important;
-                gap: 50px;
-                text-align: center;
-                margin-bottom: 120px;
-            }
-
-            .member-name {
-                font-size: 3rem;
-            }
-
-            .member-quote {
-                padding: 0 20px;
-                border-left: none;
-                border-top: 2px solid var(--accent);
-                padding-top: 20px;
-            }
-        }
-
-        /* Contact & Footer */
-        .contact-section {
-            background: var(--bg-secondary);
-            border-radius: 40px;
-            margin: 0 50px 100px;
-            padding: 80px;
-            text-align: center;
-        }
-
-        .contact-content h2 {
-            font-size: 4rem;
-            margin-bottom: 40px;
-        }
-
-        .contact-details {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item h4 {
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-
-        .contact-item p {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .contact-item a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .contact-item a:hover {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-btn {
-            width: 45px;
-            height: 45px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-btn:hover {
-            background: var(--accent);
-            color: black;
-            border-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        footer {
-            padding: 40px 50px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 4rem;
-            }
-
-            .hero-content {
-                margin-right: 0;
-            }
-
-            .hero-sidebar-left,
-            .hero-sidebar-right {
-                display: none;
-            }
-
-            .hero-bg-text {
-                font-size: 15rem;
-            }
-
-            .hero-image-decor {
-                width: 300px;
-                height: 300px;
-                right: 20px;
-                opacity: 0.3;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .quote-text {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 991px) {
-            .nav-links {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            section {
-                padding: var(--space-xl) 0;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-
-            .section-header h2 {
-                font-size: 3rem;
-            }
-
-            .contact-section {
-                margin: 0 20px 80px;
-                padding: 60px 30px;
-            }
-
-            .contact-content h2 {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 140px 20px 80px;
-                text-align: center;
-            }
-
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .hero-bg-text {
-                display: none;
-            }
-
-            .contact-item p {
-                font-size: 1.1rem;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .portfolio-viz {
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="scan-line"></div>
-
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon"><i class="fas fa-bolt"></i></div>
-                PEVER PULSE
-            </a>
-            <div class="nav-links">
-                <a href="#home" class="active">Home</a>
-                <a href="#portfolio">Holdings</a>
-                <a href="#about">About</a>
-                <a href="#members">Members</a>
-                <a href="#contact">Contact</a>
-                <a href="analysis.html" target="_blank">View Chart</a>
-            </div>
-            <div class="nav-right">
-                <a href="analysis.html" target="_blank" class="btn-chart">
-                    <i class="fas fa-chart-line"></i> View Chart
-                </a>
-                <a href="#contact" class="btn-talk">
-                    Let's Talk <i class="fas fa-arrow-right"></i>
-                </a>
-                <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-            </div>
-        </div>
-    </nav>
-
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-container">
-                <div class="hero-sidebar-left">
-                    <div class="sidebar-item mono">SYS_ACTIVE: 97.4%</div>
-                    <div style="height: 100px; width: 1px; background: rgba(255,255,255,0.1);"></div>
-                </div>
-
-                <div class="hero-content">
-                    <div class="hero-badge" data-aos="fade-right">
-                        <i class="fas fa-circle"></i> Currently Innovative worldwide
-                    </div>
-                    <h1 data-aos="fade-up" data-aos-delay="200">
-                        Innovative <span>Trading</span> Solutions
-                    </h1>
-                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
-                        <a href="#portfolio" class="play-btn">
-                            <div class="play-icon"><i class="fas fa-chart-pie"></i></div>
-                            View Holdings
-                        </a>
-                    </div>
-                </div>
-
-                <div class="hero-image-decor"></div>
-                <div class="hero-bg-text">PEVER</div>
-
-                <div class="hero-sidebar-right">
-                    <div class="sidebar-item mono">CONNECT_DATA</div>
-                    <div style="height: 100px; width: 1px; background: rgba(255,255,255,0.1);"></div>
-                    <div class="social-links" style="flex-direction: column; gap: 15px;">
-                        <a href="#" class="social-btn" style="width: 35px; height: 35px; font-size: 0.8rem;"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-btn" style="width: 35px; height: 35px; font-size: 0.8rem;"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-btn" style="width: 35px; height: 35px; font-size: 0.8rem;"><i
-                                class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-        </section>
-
-        <section class="quote-section" data-aos="fade-up">
-            <div class="quote-container">
-                <i class="fas fa-quote-left quote-icon"></i>
-                <p class="quote-text">"Our goal is not just to trade, but to redefine how value is captured through
-                    technology and precision."</p>
-                <div class="quote-author">
-                    <div class="author-line"></div>
-                    <span class="author-name">CEO, Pever Pulse</span>
-                    <div class="author-line"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="portfolio" data-aos="fade-up">
-            <div class="section-header">
-                <p>Financial Overview</p>
-                <h2>Holdings Dashboard</h2>
-            </div>
-
-            <!-- Stats Dashboard -->
-            <div class="stats-dashboard" data-aos="fade-up">
-                <div class="stat-card">
-                    <span class="stat-label">Invested Value</span>
-                    <span class="stat-value mono">3,40,000</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-label">Current Value</span>
-                    <span class="stat-value mono" style="color: var(--accent);">4,00,000</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-label">Total P&L</span>
-                    <span class="stat-value mono change-up">+60,000 (17.6%)</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-label">Today's P&L</span>
-                    <span class="stat-value mono change-up">+5,400 (1.35%)</span>
-                </div>
-            </div>
-
-            <div class="portfolio-grid">
-                <div class="portfolio-list" data-aos="fade-right">
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>Reliance Industries</h4>
-                            <span>Ticker: RELIANCE</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">1,00,000</span>
-                            <span class="asset-change change-up">+12,000 Profit</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>State Bank of India</h4>
-                            <span>Ticker: SBIN</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">1,50,000</span>
-                            <span class="asset-change change-up">+25,000 Profit</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>HDFC Bank</h4>
-                            <span>Ticker: HDFCBANK</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">60,000</span>
-                            <span class="asset-change change-down">-5,000 Loss</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>Tata Steel</h4>
-                            <span>Ticker: TATASTEEL</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">40,000</span>
-                            <span class="asset-change change-up">+8,000 Profit</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>Infosys</h4>
-                            <span>Ticker: INFY</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">30,000</span>
-                            <span class="asset-change change-up">+12,000 Profit</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>ICICI Bank</h4>
-                            <span>Ticker: ICICIBANK</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">15,000</span>
-                            <span class="asset-change change-up">+6,000 Profit</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="asset-info">
-                            <h4>Adani Power</h4>
-                            <span>Ticker: ADANIPOWER</span>
-                        </div>
-                        <div class="asset-values mono">
-                            <span class="asset-price">5,000</span>
-                            <span class="asset-change change-down">-2,000 Loss</span>
-                        </div>
-                    </div>
-                    <div
-                        style="margin-top: 20px; padding: 20px; border: 1px dashed rgba(198, 240, 35, 0.2); border-radius: 15px;">
-                        <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">
-                            <i class="fas fa-terminal"></i> terminal@pever:~$ fetch_market_data --live<br>
-                            > UPDATING_INDICES... [OK]<br>
-                            > SYNCING_PORTFOLIO... [SUCCESS]<br>
-                            > TOTAL_VALUATION: 4,00,000 INR
-                        </p>
-                    </div>
-                </div>
-                <div class="portfolio-viz" data-aos="fade-left">
-                    <div class="chart-container">
-                        <canvas id="portfolioChart"></canvas>
-                        <div class="chart-center-label">
-                            <span class="total-value mono">₹4L</span>
-                            <span class="total-label mono">Portfolio</span>
-                        </div>
-                    </div>
-                    <div class="chart-legend" id="chartLegend"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" data-aos="fade-up">
-            <div class="section-header">
-                <p>Our Story</p>
-                <h2>About Us</h2>
-            </div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <h3>Revolutionizing financial markets with cutting-edge tech.</h3>
-                    <p>Pever Pulse is a subsidiary of PeverService, focused on providing cutting-edge solutions in
-                        financial markets. We aim to revolutionize trading by utilizing stocks, futures, options,
-                        cryptocurrencies, forex, and bonds.</p>
-                    <p>Currently, we have started trading in stocks and are in the process of expanding into other
-                        instruments. The journey is challenging but exciting, as our dedicated team members continue
-                        to innovate and grow.</p>
-                </div>
-                <div class="about-image"
-                    style="background: var(--bg-card); border-radius: 30px; height: 400px; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                    <div style="color: var(--accent); font-size: 5rem; opacity: 0.1;"><i class="fas fa-microchip"></i>
-                    </div>
-                    <div
-                        style="position: absolute; top: 20px; right: 20px; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); opacity: 0.3;">
-                        PEVER_OS_v2.0</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="members" class="members-showcase">
-            <div class="showcase-container">
-                <div class="section-header" data-aos="fade-up">
-                    <p>The Inner Circle</p>
-                    <h2>Our Members</h2>
-                </div>
-
-                <!-- Hamdan Haroon -->
-                <div class="member-block">
-                    <div class="member-portrait" data-aos="fade-right">
-                        <div class="portrait-wrapper">
-                            <img src="assets/Whats-App-Image-2024-07-05-at-13-25-56-6be8d8bf.jpg" alt="Hamdan Haroon">
-                        </div>
-                    </div>
-                    <div class="member-info" data-aos="fade-left">
-                        <span class="member-role">Team Head</span>
-                        <h3 class="member-name">Hamdan <br>Haroon</h3>
-                        <p class="member-quote">"YOU SHOULNT CLIMB A MOUNTAIN FOR THE WORLD TO SEE YOU BUT FOR YOU TO
-                            SEE THE WORLD"</p>
-                        <div class="member-meta">
-                            <span class="meta-tag">STRATEGIST</span>
-                            <span class="meta-tag">UID: 001</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Arjun Renjeev -->
-                <div class="member-block">
-                    <div class="member-portrait" data-aos="fade-left">
-                        <div class="portrait-wrapper">
-                            <img src="assets/b5ecb78b-db2e-4537-ab12-41609f771ef5.jpeg" alt="Arjun Renjeev">
-                        </div>
-                    </div>
-                    <div class="member-info" data-aos="fade-right">
-                        <span class="member-role">Senior Stock Picker</span>
-                        <h3 class="member-name">Arjun <br>Renjeev</h3>
-                        <p class="member-quote">"A CUPCAKE IS A CAKE ITSELF - VALUE INVESTING"</p>
-                        <div class="member-meta">
-                            <span class="meta-tag">ANALYST</span>
-                            <span class="meta-tag">UID: 002</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kenady B Paul -->
-                <div class="member-block">
-                    <div class="member-portrait" data-aos="fade-right">
-                        <div class="portrait-wrapper">
-                            <img src="assets/kandy.jpg" alt="Kenady B Paul">
-                        </div>
-                    </div>
-                    <div class="member-info" data-aos="fade-left">
-                        <span class="member-role">Trade Manager</span>
-                        <h3 class="member-name">Kenady <br>B Paul</h3>
-                        <p class="member-quote">"GRAPES SOUR WHEN ITS OLD"</p>
-                        <div class="member-meta">
-                            <span class="meta-tag">MANAGER</span>
-                            <span class="meta-tag">UID: 003</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Akash Ani -->
-                <div class="member-block">
-                    <div class="member-portrait" data-aos="fade-left">
-                        <div class="portrait-wrapper">
-                            <img src="assets/settan-patty.jpg" alt="Akash Ani">
-                        </div>
-                    </div>
-                    <div class="member-info" data-aos="fade-right">
-                        <span class="member-role">Software Head</span>
-                        <h3 class="member-name">Akash <br>Ani</h3>
-                        <p class="member-quote">"LOOSE MONEY I WILL BE FORGIVING LOOSE GAMBLE I WILL BE RUTHLESS"
-                        </p>
-                        <div class="member-meta">
-                            <span class="meta-tag">ENGINEER</span>
-                            <span class="meta-tag">UID: 004</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact-section" data-aos="zoom-in">
-            <div class="contact-content">
-                <p style="color: var(--accent); font-weight: 700; margin-bottom: 20px;">READY TO TRADE?</p>
-                <h2>Get in Touch</h2>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <h4>Email Us</h4>
-                        <p><a href="mailto:peverpulse@gmail.com" class="mono">peverpulse@gmail.com</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <h4>Call Us</h4>
-                        <p><a href="tel:+919778738614" class="mono">+91 97787 38614</a></p>
-                    </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt" target="_blank"
-                        class="social-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com/" target="_blank" class="social-btn"><i class="fab fa-twitter"></i></a>
-                    <a href="https://facebook.com/" target="_blank" class="social-btn"><i
-                            class="fab fa-facebook"></i></a>
-                </div>
-            </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Pever Pulse. All rights reserved.</p>
-                <p class="mono" style="font-size: 0.7rem; opacity: 0.5;">BUILD_ID: 0x7E2_INNOVATION</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-
-        // Mobile Menu Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const body = document.body;
-
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const i = menuToggle.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    i.classList.remove('fa-bars');
-                    i.classList.add('fa-times');
-                    body.style.overflow = 'hidden';
-                } else {
-                    i.classList.remove('fa-times');
-                    i.classList.add('fa-bars');
-                    body.style.overflow = '';
-                }
-            });
-
-            // Close menu when link is clicked
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    const i = menuToggle.querySelector('i');
-                    if (i) {
-                        i.classList.remove('fa-times');
-                        i.classList.add('fa-bars');
-                    }
-                    body.style.overflow = '';
-                });
-            });
-        }
-
-        // Sticky Nav logic
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            const navContainer = document.querySelector('.nav-container');
-            if (window.scrollY > 50) {
-                navContainer.style.padding = '12px var(--space-md)';
-                nav.style.background = 'rgba(0, 0, 0, 0.95)';
-            } else {
-                navContainer.style.padding = '20px var(--space-md)';
-                nav.style.background = 'rgba(0, 0, 0, 0.85)';
-            }
-        });
-
-        // Portfolio Chart Implementation with Premium Design
-        const chartData = {
-            labels: ['Reliance', 'SBIN', 'HDFC Bank', 'Tata Steel', 'Infosys', 'ICICI Bank', 'Adani Power'],
-            values: [100000, 150000, 60000, 40000, 30000, 15000, 5000],
-            colors: [
-                '#c6f023', // Primary lime
-                '#a8d41a', // Darker lime
-                '#8ab815', // Even darker
-                '#6b9910', // Forest
-                '#4d7a0b', // Deep green
-                '#2e5a06', // Very dark
-                '#1a3d02'  // Almost black green
-            ]
-        };
-
-        const total = chartData.values.reduce((a, b) => a + b, 0);
-        const ctx = document.getElementById('portfolioChart').getContext('2d');
-
-        // Create gradient backgrounds for each segment
-        const createGradient = (ctx, color, index) => {
-            const gradient = ctx.createRadialGradient(150, 150, 50, 150, 150, 150);
-            gradient.addColorStop(0, color);
-            gradient.addColorStop(1, shadeColor(color, -30));
-            return gradient;
-        };
-
-        function shadeColor(color, percent) {
-            const num = parseInt(color.replace('#', ''), 16);
-            const amt = Math.round(2.55 * percent);
-            const R = (num >> 16) + amt;
-            const G = (num >> 8 & 0x00FF) + amt;
-            const B = (num & 0x0000FF) + amt;
-            return '#' + (
-                0x1000000 +
-                (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
-                (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
-                (B < 255 ? (B < 1 ? 0 : B) : 255)
-            ).toString(16).slice(1);
-        }
-
-        const portfolioChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    data: chartData.values,
-                    backgroundColor: chartData.colors,
-                    borderColor: '#0a0a0a',
-                    borderWidth: 3,
-                    hoverOffset: 15,
-                    hoverBorderColor: '#c6f023',
-                    hoverBorderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                aspectRatio: window.innerWidth < 768 ? 1 : 1.5,
-                cutout: '70%',
-                radius: '90%',
-                animation: {
-                    animateRotate: true,
-                    animateScale: true,
-                    duration: 1500,
-                    easing: 'easeOutQuart'
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: true,
-                        backgroundColor: 'rgba(17, 17, 17, 0.95)',
-                        titleFont: { family: 'JetBrains Mono', size: 12, weight: 'bold' },
-                        bodyFont: { family: 'JetBrains Mono', size: 11 },
-                        padding: 15,
-                        cornerRadius: 10,
-                        borderColor: 'rgba(198, 240, 35, 0.3)',
-                        borderWidth: 1,
-                        displayColors: true,
-                        boxWidth: 10,
-                        boxHeight: 10,
-                        boxPadding: 5,
-                        callbacks: {
-                            title: function (context) {
-                                return context[0].label;
-                            },
-                            label: function (context) {
-                                const value = context.raw;
-                                const percentage = ((value / total) * 100).toFixed(1);
-                                return ` ₹${value.toLocaleString('en-IN')} (${percentage}%)`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        // Generate Custom Legend
-        const legendContainer = document.getElementById('chartLegend');
-        chartData.labels.forEach((label, index) => {
-            const value = chartData.values[index];
-            const percentage = ((value / total) * 100).toFixed(1);
-            const color = chartData.colors[index];
-
-            const legendItem = document.createElement('div');
-            legendItem.className = 'legend-item';
-            legendItem.innerHTML = `
-                <div class="legend-color" style="background: ${color}; color: ${color};"></div>
-                <div class="legend-info">
-                    <div class="legend-name">${label}</div>
-                    <div class="legend-value">₹${(value / 1000).toFixed(0)}K</div>
-                </div>
-                <div class="legend-percent">${percentage}%</div>
-            `;
-
-            // Add hover interaction
-            legendItem.addEventListener('mouseenter', () => {
-                portfolioChart.setActiveElements([{ datasetIndex: 0, index: index }]);
-                portfolioChart.update();
-            });
-            legendItem.addEventListener('mouseleave', () => {
-                portfolioChart.setActiveElements([]);
-                portfolioChart.update();
-            });
-
-            legendContainer.appendChild(legendItem);
-        });
-
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/world.css" />
+    <!-- Three and all of its addons MUST use the same pinned release. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
     </script>
-</body>
+    <script type="module" src="assets/js/app.js"></script>
+  </head>
+  <body data-page="journey">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="loader" hidden role="status" aria-live="polite">
+      <div class="load-mark">◇</div>
+      <p class="eyebrow">PEVER PULSE</p>
+      <p class="load-title">A world is taking shape.</p>
+      <progress
+        id="loadProgress"
+        max="100"
+        value="4"
+        aria-label="Loading world"
+      ></progress>
+      <p id="loadLabel" class="mono">Opening the gateway</p>
+      <button id="skipLoading" class="text-link" type="button">
+        Enter now ↗
+      </button>
+    </div>
+    <div id="world-backdrop" aria-hidden="true">
+      <div class="fallback-halo"></div>
+      <div class="fallback-mountains"></div>
+    </div>
+    <canvas id="world" aria-hidden="true"></canvas>
+    <div class="world-vignette" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="Pever Pulse home"
+        ><svg viewBox="0 0 32 40" aria-hidden="true">
+          <path
+            d="M16 1 30 14 16 39 2 14Z M16 1v38 M2 14h28 M2 14l14 6 14-6"
+          /></svg
+        ><span>PEVER PULSE<small>A WORLD OF POSSIBILITY</small></span></a
+      >
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">The gateway</a><a href="#portfolio">Discovery</a
+        ><a href="#analysis">Observatory</a>
+      </nav>
+      <div class="header-actions">
+        <button
+          id="soundToggle"
+          class="sound-toggle"
+          aria-pressed="false"
+          type="button"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 10v4m4-8v12m5-16v20m5-16v12m4-8v4" /></svg
+          ><span>Sound off</span></button
+        ><button
+          id="menuToggle"
+          class="menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="worldMenu"
+          type="button"
+        >
+          <span></span><span></span>
+        </button>
+      </div>
+    </header>
+    <div id="worldMenu" class="world-menu" hidden>
+      <nav aria-label="All destinations">
+        <a href="#home">Home <span>01</span></a
+        ><a href="#portfolio">Holdings <span>02</span></a
+        ><a href="#about">About <span>03</span></a
+        ><a href="#members">Members <span>04</span></a
+        ><a href="#analysis">Analysis <span>05</span></a
+        ><a href="#chart">Historical chart <span>06</span></a
+        ><a href="#contact">Contact <span>07</span></a>
+      </nav>
+    </div>
+    <aside class="journey-position" aria-label="Journey position">
+      <span id="realmLabel">The gateway</span>
+      <div><i id="journeyProgress"></i></div>
+      <span id="journeyPercent">00</span>
+    </aside>
+    <button
+      id="motionToggle"
+      class="motion-toggle"
+      aria-pressed="false"
+      type="button"
+    >
+      Pause motion
+    </button>
+    <dialog
+      id="artifactDialog"
+      class="artifact-dialog"
+      aria-labelledby="artifactTitle"
+      data-lenis-prevent
+    >
+      <form method="dialog">
+        <button class="dialog-close" aria-label="Close detail panel">×</button>
+      </form>
+      <p class="eyebrow" id="artifactKicker">THE CRYSTAL ARCHIVE</p>
+      <h2 id="artifactTitle">A fragment of the whole</h2>
+      <p id="artifactBody"></p>
+      <a id="artifactLink" class="text-link" href="#portfolio"
+        >Explore holdings ↗</a
+      >
+    </dialog>
+    <div id="worldTooltip" class="world-tooltip" hidden></div>
+    <div id="cursor" aria-hidden="true"><i></i><b></b></div>
+    <div id="transitionVeil" aria-hidden="true"></div>
+    <noscript
+      ><p class="noscript-note">
+        The story and original portfolio are available below. Enable JavaScript
+        to explore the world and request market charts.
+      </p></noscript
+    >
 
+    <main id="main">
+      <section id="home" class="hero realm" data-realm="The gateway">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="status-spark"></span> CURRENTLY INNOVATIVE WORLDWIDE
+          </p>
+          <h1 data-reveal>Where value<br /><em>comes to light.</em></h1>
+          <p class="hero-subtitle">Innovative Trading Solutions</p>
+          <p class="story" data-story="arrival">
+            Beyond the noise lies a city built from possibility. Follow the
+            light. Find the value hidden in its peaks.
+          </p>
+          <a class="journey-cta" href="#portfolio"
+            ><span class="cta-orbit">↘</span
+            ><span
+              >Begin the journey<small>EXPLORE OUR HOLDINGS</small></span
+            ></a
+          >
+        </div>
+        <button class="scene-hotspot" type="button" data-inspect="gate">
+          <span>＋</span> THE GATE OF POSSIBILITY<small
+            >Touch the light to discover</small
+          >
+        </button>
+        <div class="hero-floor">
+          <span class="mono">01 — THE ARRIVAL</span
+          ><span class="scroll-invitation"><i></i> SCROLL TO TRAVEL</span
+          ><span class="mono desktop-only">A PEVER SERVICE UNIVERSE</span>
+        </div>
+      </section>
+      <section class="vista realm" data-realm="Across the threshold">
+        <p class="eyebrow">LEAVE THE NOISE BEHIND</p>
+        <h2 data-reveal>Every peak<br />holds a <em>story.</em></h2>
+        <p class="story" data-story="discovery">
+          Each crystal carries a fragment of the whole. Step closer: conviction,
+          patience, and precision give the city its shape.
+        </p>
+        <button class="text-link" type="button" data-inspect="treasury">
+          Examine a crystal ↗
+        </button>
+      </section>
+      <section
+        id="portfolio"
+        class="realm content-realm"
+        data-realm="The crystal treasury"
+      >
+        <div class="section-header">
+          <p>01 / THE CRYSTAL TREASURY · Financial Overview</p>
+          <h2>Holdings Dashboard</h2>
+        </div>
+
+        <p class="section-note">
+          Original portfolio snapshot · figures preserved from Pever Pulse.
+        </p>
+        <!-- Stats Dashboard -->
+        <div class="stats-dashboard">
+          <div class="stat-card">
+            <span class="stat-label">Invested Value</span>
+            <span class="stat-value mono">3,40,000</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Current Value</span>
+            <span class="stat-value mono">4,00,000</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Total P&L</span>
+            <span class="stat-value mono change-up">+60,000 (17.6%)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Today's P&L</span>
+            <span class="stat-value mono change-up">+5,400 (1.35%)</span>
+          </div>
+        </div>
+
+        <div class="portfolio-grid">
+          <div class="portfolio-list">
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>Reliance Industries</h4>
+                <span>Ticker: RELIANCE</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">1,00,000</span>
+                <span class="asset-change change-up">+12,000 Profit</span>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>State Bank of India</h4>
+                <span>Ticker: SBIN</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">1,50,000</span>
+                <span class="asset-change change-up">+25,000 Profit</span>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>HDFC Bank</h4>
+                <span>Ticker: HDFCBANK</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">60,000</span>
+                <span class="asset-change change-down">-5,000 Loss</span>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>Tata Steel</h4>
+                <span>Ticker: TATASTEEL</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">40,000</span>
+                <span class="asset-change change-up">+8,000 Profit</span>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>Infosys</h4>
+                <span>Ticker: INFY</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">30,000</span>
+                <span class="asset-change change-up">+12,000 Profit</span>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>ICICI Bank</h4>
+                <span>Ticker: ICICIBANK</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">15,000</span>
+                <span class="asset-change change-up">+6,000 Profit</span>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="asset-info">
+                <h4>Adani Power</h4>
+                <span>Ticker: ADANIPOWER</span>
+              </div>
+              <div class="asset-values mono">
+                <span class="asset-price">5,000</span>
+                <span class="asset-change change-down">-2,000 Loss</span>
+              </div>
+            </div>
+            <div>
+              <p class="mono">
+                <i class="fas fa-terminal"></i> terminal@pever:~$
+                fetch_market_data --live<br />
+                > UPDATING_INDICES... [OK]<br />
+                > SYNCING_PORTFOLIO... [SUCCESS]<br />
+                > TOTAL_VALUATION: 4,00,000 INR
+              </p>
+            </div>
+          </div>
+          <div class="portfolio-viz">
+            <div class="chart-container">
+              <canvas
+                id="portfolioChart"
+                role="img"
+                aria-label="Original portfolio allocation. Exact values are listed alongside."
+              ></canvas>
+              <div class="chart-center-label">
+                <span class="total-value mono">₹4L</span>
+                <span class="total-label mono">Portfolio</span>
+              </div>
+            </div>
+            <div class="chart-legend" id="chartLegend"></div>
+          </div>
+        </div>
+      </section>
+      <section class="quote-section content-realm">
+        <p class="eyebrow">A SHARED CONVICTION</p>
+        <blockquote>
+          “Our goal is not just to trade, but to redefine how value is captured
+          through technology and precision.”
+        </blockquote>
+        <p class="quote-author">CEO, Pever Pulse</p>
+      </section>
+      <section id="about" class="realm content-realm" data-realm="The keepers">
+        <div class="section-header">
+          <p>02 / THE KEEPERS · Our Story</p>
+          <h2>About Us</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <h3>Revolutionizing financial markets with cutting-edge tech.</h3>
+            <p>
+              Pever Pulse is a subsidiary of PeverService, focused on providing
+              cutting-edge solutions in financial markets. We aim to
+              revolutionize trading by utilizing stocks, futures, options,
+              cryptocurrencies, forex, and bonds.
+            </p>
+            <p>
+              Currently, we have started trading in stocks and are in the
+              process of expanding into other instruments. The journey is
+              challenging but exciting, as our dedicated team members continue
+              to innovate and grow.
+            </p>
+          </div>
+          <div class="about-image">
+            <div><i class="fas fa-microchip"></i></div>
+            <div>PEVER_OS_v2.0</div>
+          </div>
+        </div>
+      </section>
+      <section id="members" class="members-showcase content-realm">
+        <div class="showcase-container">
+          <div class="section-header">
+            <p>The Inner Circle</p>
+            <h2>Our Members</h2>
+          </div>
+
+          <!-- Hamdan Haroon -->
+          <div class="member-block">
+            <div class="member-portrait">
+              <div class="portrait-wrapper">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/Whats-App-Image-2024-07-05-at-13-25-56-6be8d8bf.jpg"
+                  alt="Hamdan Haroon"
+                />
+              </div>
+            </div>
+            <div class="member-info">
+              <span class="member-role">Team Head</span>
+              <h3 class="member-name">Hamdan <br />Haroon</h3>
+              <p class="member-quote">
+                "YOU SHOULNT CLIMB A MOUNTAIN FOR THE WORLD TO SEE YOU BUT FOR
+                YOU TO SEE THE WORLD"
+              </p>
+              <div class="member-meta">
+                <span class="meta-tag">STRATEGIST</span>
+                <span class="meta-tag">UID: 001</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arjun Renjeev -->
+          <div class="member-block">
+            <div class="member-portrait">
+              <div class="portrait-wrapper">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/b5ecb78b-db2e-4537-ab12-41609f771ef5.jpeg"
+                  alt="Arjun Renjeev"
+                />
+              </div>
+            </div>
+            <div class="member-info">
+              <span class="member-role">Senior Stock Picker</span>
+              <h3 class="member-name">Arjun <br />Renjeev</h3>
+              <p class="member-quote">
+                "A CUPCAKE IS A CAKE ITSELF - VALUE INVESTING"
+              </p>
+              <div class="member-meta">
+                <span class="meta-tag">ANALYST</span>
+                <span class="meta-tag">UID: 002</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kenady B Paul -->
+          <div class="member-block">
+            <div class="member-portrait">
+              <div class="portrait-wrapper">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/kandy.jpg"
+                  alt="Kenady B Paul"
+                />
+              </div>
+            </div>
+            <div class="member-info">
+              <span class="member-role">Trade Manager</span>
+              <h3 class="member-name">Kenady <br />B Paul</h3>
+              <p class="member-quote">"GRAPES SOUR WHEN ITS OLD"</p>
+              <div class="member-meta">
+                <span class="meta-tag">MANAGER</span>
+                <span class="meta-tag">UID: 003</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Akash Ani -->
+          <div class="member-block">
+            <div class="member-portrait">
+              <div class="portrait-wrapper">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/settan-patty.jpg"
+                  alt="Akash Ani"
+                />
+              </div>
+            </div>
+            <div class="member-info">
+              <span class="member-role">Software Head</span>
+              <h3 class="member-name">Akash <br />Ani</h3>
+              <p class="member-quote">
+                "LOOSE MONEY I WILL BE FORGIVING LOOSE GAMBLE I WILL BE
+                RUTHLESS"
+              </p>
+              <div class="member-meta">
+                <span class="meta-tag">ENGINEER</span>
+                <span class="meta-tag">UID: 004</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        id="analysis"
+        class="realm tool-realm content-realm"
+        data-realm="The violet observatory"
+      >
+        <div class="section-header">
+          <p>03 / THE VIOLET OBSERVATORY · Analysis</p>
+          <h2 data-reveal>Listen to<br /><em>the market.</em></h2>
+        </div>
+        <div class="section-lead">
+          <p>
+            From a single candle to a wider horizon. Explore price, volume, and
+            the movement between them.
+          </p>
+          <a class="text-link" href="analysis.html">Open full terminal ↗</a>
+        </div>
+        <div class="hologram-frame">
+          <div class="frame-rune" aria-hidden="true">◇</div>
+          <iframe
+            id="analysisFrame"
+            src="analysis.html?embedded=1"
+            title="Pever Pulse live candlestick and volume analysis"
+            loading="lazy"
+            data-lenis-prevent
+          ></iframe>
+        </div>
+        <p class="frame-caption">CANDLESTICKS / VOLUME / MONEYCONTROL</p>
+      </section>
+      <section
+        class="vista revelation-vista realm"
+        data-realm="The midnight archive"
+      >
+        <p class="eyebrow">BEYOND THE VEIL</p>
+        <h2 data-reveal>The past becomes<br /><em>a pattern.</em></h2>
+        <p class="story" data-story="revelation">
+          At the observatory, the mist lifts. The past becomes a pattern, and
+          every movement leaves a trace.
+        </p>
+        <button class="text-link" type="button" data-inspect="archive">
+          Read the monolith ↗
+        </button>
+      </section>
+      <section
+        id="chart"
+        class="realm tool-realm content-realm"
+        data-realm="The midnight archive"
+      >
+        <div class="section-header">
+          <p>04 / THE MIDNIGHT ARCHIVE · Revelation</p>
+          <h2 data-reveal>Illuminate the data.</h2>
+        </div>
+        <div class="section-lead">
+          <p>
+            Select a symbol and a moment in time. The archive reveals its open,
+            high, low, close, and volume.
+          </p>
+          <a class="text-link" href="PEVERPICHART.html">Open full chart ↗</a>
+        </div>
+        <div class="hologram-frame archive-frame">
+          <div class="frame-rune" aria-hidden="true">◇</div>
+          <iframe
+            id="historyFrame"
+            src="PEVERPICHART.html?embedded=1"
+            title="Historical OHLC and volume stock chart"
+            loading="lazy"
+            data-lenis-prevent
+          ></iframe>
+        </div>
+        <p id="hologramCaption" class="frame-caption">
+          THE CRYSTAL STRUCTURE REFLECTS THE ORIGINAL HOLDINGS UNTIL PRICE DATA
+          ARRIVES
+        </p>
+      </section>
+      <section
+        id="contact"
+        class="contact-section realm"
+        data-realm="An open horizon"
+      >
+        <div class="contact-content">
+          <p class="eyebrow">05 / AN OPEN HORIZON</p>
+          <p class="closing-story" data-story="closing">
+            The horizon is still unwritten. Take what you have discovered, and
+            build what comes next.
+          </p>
+          <p>READY TO TRADE?</p>
+          <h2>Get in Touch</h2>
+          <div class="contact-details">
+            <div class="contact-item">
+              <h4>Email Us</h4>
+              <p>
+                <a href="mailto:peverpulse@gmail.com" class="mono"
+                  >peverpulse@gmail.com</a
+                >
+              </p>
+            </div>
+            <div class="contact-item">
+              <h4>Call Us</h4>
+              <p>
+                <a href="tel:+919778738614" class="mono">+91 97787 38614</a>
+              </p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a
+              href="https://www.instagram.com/peverpulse?igsh=MWg1eW85bmNiNnFt"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-btn"
+              aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-btn"
+              aria-label="Twitter"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a
+              href="https://facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-btn"
+              aria-label="Facebook"
+              ><i class="fab fa-facebook"></i
+            ></a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <details class="legacy-meta content-realm">
+      <summary>Original site status</summary>
+      <p class="mono">SYS_ACTIVE: 97.4% · CONNECT_DATA · PEVER</p>
+      <p>
+        <a href="#portfolio">View Holdings</a> ·
+        <a href="#analysis">View Chart</a> · <a href="#contact">Let's Talk</a>
+      </p>
+    </details>
+    <footer class="site-footer">
+      <a href="#home" class="text-link">Return to the gateway ↑</a>
+      <p>© 2024 Pever Pulse. All rights reserved.</p>
+      <span class="mono">BUILD_ID: 0x7E2_INNOVATION</span>
+    </footer>
+  </body>
 </html>
